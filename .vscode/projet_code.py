@@ -10,7 +10,7 @@ fenetre1.geometry("650x800")
 #fenetre1.configure(bg='#006400')
 
 
-
+#Label
 
  
 image_path="C:/Users/apoll/Desktop/Black-jack-1/.vscode/casino.png"
@@ -43,5 +43,5 @@ bouton_quit = tk.Button(fenetre1,text = " QUIT ",bg = 'indian red',command = fen
 bouton_quit.configure(height=5, width=30)
 bouton_quit.place(x=200,y=700)
 
-#mets fenetre
+#mets fenetre1
 fenetre1.mainloop()
