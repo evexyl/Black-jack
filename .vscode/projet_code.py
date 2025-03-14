@@ -14,14 +14,14 @@ fenetre1.geometry("650x800")
 bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
 bj.place(x=300,y=165)
 
-image_path="d:/LDDBI/L1/Semestre 2/Informatique/IN200/Projet/Black-jack/.vscode/casino.png"
-image= PhotoImage(file=image_path)
+current_dir = os.path.dirname(__file__)
+image_path = os.path.join(current_dir, "casino.png")
+image = PhotoImage(file=image_path)
 
-image_bj=tk.Label(fenetre1,image=image)
-image_bj.image=image
+image_bj = tk.Label(fenetre1, image=image)
+image_bj.image = image
 image_bj.pack()
-bj = tk.Label(fenetre1, text="Black Jack", font = ("Impact", 54))
-bj.place(x=165,y=165)
+
 
 #Bouttons
 start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
