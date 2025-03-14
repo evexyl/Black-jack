@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import PhotoImage
 import os
+import pyglet 
+
 
 #FENETRE 1:
 #config de fenetre + canvas
@@ -40,5 +42,5 @@ bouton_quit = tk.Button(fenetre1,text = " QUIT ",bg = 'indian red',command = fen
 bouton_quit.configure(height=5, width=30)
 bouton_quit.place(x=200,y=700)
 
-#mets fenetre
+#mets fenetre1
 fenetre1.mainloop()
