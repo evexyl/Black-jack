@@ -5,11 +5,14 @@ import tkinter as tk
 fenetre1 = tk.Tk()
 fenetre1.title("Black Jack MENU")
 fenetre1.geometry("650x800")
-fenetre1.configure(bg='#006400')
+#fenetre1.configure(bg='#006400')
+
 
 #Label
 bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
 bj.place(x=300,y=165)
+img= PhotoImage(file='')
+bj(fenetre1, image=img).pack()
 
 #Bouttons
 start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
