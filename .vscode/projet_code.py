@@ -22,8 +22,8 @@ image_bj.pack()
 
 #label
 
-pyglet.font.add_file()
-bj = tk.Label(fenetre1, text="Black Jack",  font = ("casino", 54))
+pyglet.font.add_file("C:/Users/apoll/Desktop/Black-jack-1/.vscode/CasinoFlat.ttf")
+bj = tk.Label(fenetre1, text="Black Jack",  font = ("CasinoFlat", 54))
 bj.place(x=165,y=165)
 
 #Bouttons
