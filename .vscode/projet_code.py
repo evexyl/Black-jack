@@ -12,13 +12,8 @@ fenetre1.geometry("650x800")
 #Label
 bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
 bj.place(x=300,y=165)
-<<<<<<< HEAD
 image=PhotoImage(file="casino.png")
-image_bj=tk.Label(fenetre1,image)
-=======
-image=PhotoImage(file="casino menu.png")
 image_bj=tk.Label(fenetre1,image=image)
->>>>>>> 8428103e86ec14d064f7305149a1fbbd484b0f35
 image_bj.pack()
 
 
