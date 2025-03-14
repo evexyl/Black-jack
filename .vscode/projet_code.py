@@ -12,8 +12,12 @@ fenetre1.geometry("650x800")
 #Label
 bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
 bj.place(x=300,y=165)
-image=PhotoImage(file="casino.png")
+
+image_path="d:/LDDBI/L1/Semestre 2/Informatique/IN200/Projet/Black-jack/.vscode/casino.png"
+image= PhotoImage(file=image_path)
+
 image_bj=tk.Label(fenetre1,image=image)
+image_bj.image=image
 image_bj.pack()
 
 
