@@ -5,10 +5,10 @@ import tkinter as tk
 fenetre1 = tk.Tk()
 fenetre1.title("Black Jack MENU")
 fenetre1.geometry("650x800")
-fenetre1.configure(bg='black')
+fenetre1.configure(bg='#006400')
 
 #Label
-bj = tk.Label(fenetre1, text="BlackJack", bg = "black", fg = "white")
+bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
 bj.place(x=300,y=165)
 
 #Bouttons
