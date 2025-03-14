@@ -14,6 +14,7 @@ bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = 
 bj.place(x=300,y=165)
 image=PhotoImage(file="")
 
+
 #Bouttons
 start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
 start.configure(height=5, width=30)
