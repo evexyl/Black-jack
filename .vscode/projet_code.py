@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import PhotoImage
+import os
 import pyglet 
+
 
 #FENETRE 1:
 #config de fenetre + canvas
@@ -11,19 +13,21 @@ fenetre1.geometry("650x800")
 
 
 #Label
+bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
+bj.place(x=300,y=165)
 
- 
-image_path="C:/Users/apoll/Desktop/Black-jack-1/.vscode/casino.png"
-image= PhotoImage(file=image_path)
+current_dir = os.path.dirname(__file__)
+image_path = os.path.join(current_dir, "casino.png")
+image = PhotoImage(file=image_path)
 
-image_bj=tk.Label(fenetre1,image=image)
-image_bj.image=image
+image_bj = tk.Label(fenetre1, image=image)
+image_bj.image = image
 image_bj.pack()
 
 #label
 
-pyglet.font.add_file("C:/Users/apoll/Desktop/Black-jack-1/.vscode/CasinoFlat.ttf")
-bj = tk.Label(fenetre1, text="Black Jack",  font = ("CasinoFlat", 54))
+pyglet.font.add_file('C:/Users/apoll/Desktop/Black-jack-1/.vscode/casino.ttf')
+bj = tk.Label(fenetre1, text="Black Jack",  font = ("casino", 54))
 bj.place(x=165,y=165)
 
 #Bouttons
