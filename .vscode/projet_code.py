@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import PhotoImage
 
 #FENETRE 1:
 #config de fenetre + canvas
@@ -11,6 +12,7 @@ fenetre1.geometry("650x800")
 #Label
 bj = tk.Label(fenetre1, text="Black Jack", bg = "#006400", fg = "white", font = ("Impact", 54))
 bj.place(x=300,y=165)
+image=PhotoImage(file="")
 
 #Bouttons
 start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
