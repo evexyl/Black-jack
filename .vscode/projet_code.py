@@ -20,25 +20,27 @@ image_bj = tk.Label(fenetre1, image=image)
 image_bj.image = image
 image_bj.pack()
 
-bj = tk.Label(fenetre1, text="Black Jack",bg = "#006400", fg = "white", font=("Impact",54))
+bj = tk.Label(fenetre1, text="Black Jack",bg = "#006400", fg = "white", font=("Impact",54))   #fond de black jack en noir et font=Helvetica
 bj.place(x=150,y=165)
 
-#Bouttons
+#Bouttons    #changer couleur bouton 
 start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
 start.configure(height=5, width=30)
-start.place(x=200,y=300)
+start.place(x=200,y=350)
 
 regles = tk.Button(fenetre1,text = " REGLES ",bg = '#42529c',fg = 'white')
 regles.configure(height=5, width=30)
-regles.place(x=200,y=400)
-
-hist = tk.Button(fenetre1,text = " HISTORIQUE ",bg = '#42529c',fg = 'white')
-hist.configure(height=5, width=30)
-hist.place(x=200,y=500)
+regles.place(x=200,y=450)
 
 bouton_quit = tk.Button(fenetre1,text = " QUIT ",bg = 'indian red',command = fenetre1.destroy)
 bouton_quit.configure(height=5, width=30)
-bouton_quit.place(x=200,y=600)
+bouton_quit.place(x=200,y=550)
 
 #mets fenetre1
 fenetre1.mainloop()
+
+###############################################################################################
+#FENETRE 2
+
+###############################################################################################
+#FENETRE 3
