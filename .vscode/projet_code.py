@@ -32,7 +32,7 @@ regles = tk.Button(fenetre1,text = " REGLES ",bg = '#42529c',fg = 'white')
 regles.configure(height=5, width=30)
 regles.place(x=200,y=400)
 
-hist = tk.Button(fenetre1,text = " HISTORIQUE ",bg = '#42529c',fg = 'white')
+hist = tk.Button(fenetre1,text = " HISTORIQUE ",bg = '#42529c',fg = 'white')#A enlever
 hist.configure(height=5, width=30)
 hist.place(x=200,y=500)
 
