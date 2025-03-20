@@ -32,6 +32,8 @@ regles = tk.Button(fenetre1,text = " REGLES ",bg = '#42529c',fg = 'white')
 regles.configure(height=5, width=30)
 regles.place(x=200,y=400)
 
+
+
 hist = tk.Button(fenetre1,text = " HISTORIQUE ",bg = '#42529c',fg = 'white')#A enlever
 hist.configure(height=5, width=30)
 hist.place(x=200,y=500)
@@ -43,3 +45,33 @@ bouton_quit.place(x=200,y=600)
 #mets fenetre1
 fenetre1.mainloop()
 
+import tkinter as tk
+
+#Fenetre règle:
+#config de fenetre + canvas
+fentre_regle= tk.Tk()
+fentre_regle.title("Black Jack REGLE")
+fentre_regle.config(bg="black")
+fentre_regle.geometry("650x800")
+
+#Label
+rule=tk.Label(fentre_regle,fg="green", font=('Arial',14),wraplength=600,
+              text="But du jeu : Atteindre un total de points le plus proche de 21 sans dépasser "
+              "ce nombre.\n"
+              
+              "Valeurs des cartes : les cartes de 2 à 10 valent leur valeur.Les "
+              "figures (Roi, Dame, Valet) valent 10 points. L'As vaut 1 ou 11 points (selon "
+              "ce qui vous avantage).\n "
+
+              "Déroulement :Chaque joueur reçoit 2 cartes face visible, "
+              "et le croupier a une carte visible et une face cachée. Vous pouvez demander "
+              "d’autres cartes (tirer), ou garder votre total actuel (rester). Si vos cartes"
+              " dépassent 21, vous perdez (on appelle cela 'sauter'). \n "
+
+              "Gagner : Vous gagnez si votre total est égal à 21 ou le plus proche possible sans dépasser cette valeur. "
+              "Un Blackjack (21 avec deux cartes seulement, As + 10 ou figure) est la meilleure main possible.")  #\n permet le retour a la ligne
+rule.pack()
+
+
+#affichage fenetre regle
+fentre_regle.mainloop()
