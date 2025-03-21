@@ -48,9 +48,10 @@ stand.place(x=300,y=300)
 current_dir = os.path.dirname(__file__)
 #clubs
 image_path = os.path.join(current_dir, "ace_of_clubs.png")
-ace_of_clubs = tk.PhotoImage(file = image_path)
-ace_of_clubs_l = tk.Label(fenetre2, image = ace_of_clubs)
-ace_of_clubs.place(x=600,y=600)
+ac = tk.PhotoImage(file = image_path)
+ace_of_clubs_l = tk.Label(fenetre2, image = ac)
+ace_of_clubs_l.place(x=600,y=600)
+ace_of_clubs = ace_of_clubs_l.subsample(2,2)
 #diamonds
 #heart
 #spades

@@ -11,6 +11,12 @@ def on_open_fenetre():
     fentre_regle.config(bg="black")
     fentre_regle.geometry("650x800")
 
+def on_open_fenetre2():
+    fenetre2 = tk.Toplevel()
+    fenetre2.title("Black Jack JEU")
+    fenetre2.geometry("1200x700")
+    fenetre2.config(bg = '#007a33')
+
 
 
 #Label
@@ -54,7 +60,7 @@ bj = tk.Label(fenetre1, text="Black Jack",bg = "#006400", fg = "white", font=("I
 bj.place(x=150,y=165)
 
 #Bouttons
-start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
+start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white', command = on_open_fenetre2)
 start.configure(height=5, width=30)
 start.place(x=200,y=350)
 
