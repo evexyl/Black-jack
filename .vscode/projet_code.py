@@ -26,33 +26,34 @@ bj.place(x=150,y=165)
 #Bouttons
 start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
 start.configure(height=5, width=30)
-start.place(x=200,y=300)
+start.place(x=200,y=350)
 
-regles = tk.Button(fenetre1,text = " REGLES ",bg = '#42529c',fg = 'white')
+regles = tk.Button(fenetre1,text = " REGLES ",bg = '#42529c',fg = 'white', command= on_open_fenetre)
 regles.configure(height=5, width=30)
-regles.place(x=200,y=400)
-
-
-
-hist = tk.Button(fenetre1,text = " HISTORIQUE ",bg = '#42529c',fg = 'white')#A enlever
-hist.configure(height=5, width=30)
-hist.place(x=200,y=500)
+regles.place(x=200,y=450)
 
 bouton_quit = tk.Button(fenetre1,text = " QUIT ",bg = 'indian red',command = fenetre1.destroy)
 bouton_quit.configure(height=5, width=30)
-bouton_quit.place(x=200,y=600)
+bouton_quit.place(x=200,y=550)
 
 #mets fenetre1
 fenetre1.mainloop()
 
-import tkinter as tk
+########################################################################################################################
+#FENETRE 2
 
+########################################################################################################################
 #Fenetre règle:
+
 #config de fenetre + canvas
-fentre_regle= tk.Tk()
-fentre_regle.title("Black Jack REGLE")
-fentre_regle.config(bg="black")
-fentre_regle.geometry("650x800")
+#callback fenetre regle
+def on_open_fenetre():
+    fentre_regle= tk.Toplevel()
+    fentre_regle.title("Black Jack REGLE")
+    fentre_regle.config(bg="black")
+    fentre_regle.geometry("650x800")
+
+
 
 #Label
 rule=tk.Label(fentre_regle,fg="green", font=('Arial',14),wraplength=600,
@@ -73,5 +74,6 @@ rule=tk.Label(fentre_regle,fg="green", font=('Arial',14),wraplength=600,
 rule.pack()
 
 
+
 #affichage fenetre regle
-fentre_regle.mainloop()
+#fentre_regle.mainloop()
