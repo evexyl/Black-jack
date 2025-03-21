@@ -39,7 +39,7 @@ def on_open_fenetre():
 
     rule.pack()
 
-##############################################################################################################################
+#############################################################################################################################
 #FENETRE 2
 #FONCTIONS
 def on_open_fenetre2():
@@ -91,14 +91,24 @@ def on_open_fenetre2():
                  ace_of_spade, two_of_spade, three_of_spade, four_of_spade, five_of_spade, six_of_spade, seven_of_spade, eight_of_spade, nine_of_spade, ten_of_spade, jack_of_spade, queen_of_spade, king_of_spade]
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
+
     #clubs
     image_path = os.path.join(current_dir, "ace_of_clubs.png")
     ace_of_clubs = image_path.resize((125, 182))
     ac = tk.PhotoImage(file = image_path)
+    #ace_of_clubs = tk.resizeImage(ac, 125, 182)
     ace_of_clubs_l = tk.Label(fenetre2, image = ac)
     ace_of_clubs_l.place(x=400,y=200)
     
     #diamonds
+    diamant_path=os.path.join(current_dir, "ace_of_diamonds.png")
+    diam= PhotoImage(file=diamant_path)
+    diam=diam.subsample(4,4)
+    diama=tk.Label(fenetre2,image=diam)
+    diama.image=diam
+    diama.place(x=600,y=300)
+    
+    
     #heart
     #spades
 
