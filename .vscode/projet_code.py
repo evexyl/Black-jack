@@ -85,10 +85,11 @@ def on_open_fenetre2():
 
     #CARTES + leurs labels (sauvez moi) 
     cartes_photos = ["ace_of_clubs.png"]
-    cartes = [ace_of_clubs, two_of_clubs, three_of_clubs, four_of_clubs, five_of_clubs, six_of_clubs, seven_of_clubs, eight_of_clubs, nine_of_clubs, ten_of_clubs, jack_of_clubs, queen_of_clubs, king_of_clubs,
-                ace_of_diamonds, two_of_diamonds, three_of_diamonds, four_of_diamonds, five_of_diamonds, six_of_diamonds, seven_of_diamonds, eight_of_diamonds, nine_of_diamonds, ten_of_diamonds, jack_of_diamonds, queen_of_diamonds, king_of_diamonds,
-                 ace_of_hearts, two_of_hearts, three_of_hearts, four_of_hearts, five_of_hearts, six_of_hearts, seven_of_hearts, eight_of_hearts, nine_of_hearts, ten_of_hearts, jack_of_hearts, queen_of_hearts, king_of_hearts,
-                 ace_of_spade, two_of_spade, three_of_spade, four_of_spade, five_of_spade, six_of_spade, seven_of_spade, eight_of_spade, nine_of_spade, ten_of_spade, jack_of_spade, queen_of_spade, king_of_spade]
+    cartes = ["ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
+    "ace_of_diamonds.png", "two_of_diamonds.png", "three_of_diamonds.png", "four_of_diamonds.png", "five_of_diamonds.png", "six_of_diamonds.png", "seven_of_diamonds.png", "eight_of_diamonds.png", "nine_of_diamonds.png", "ten_of_diamonds.png", "jack_of_diamonds.png", "queen_of_diamonds.png", "king_of_diamonds.png",
+    "ace_of_hearts.png", "two_of_hearts.png", "three_of_hearts.png", "four_of_hearts.png", "five_of_hearts.png", "six_of_hearts.png", "seven_of_hearts.png", "eight_of_hearts.png", "nine_of_hearts.png", "ten_of_hearts.png", "jack_of_hearts.png", "queen_of_hearts.png", "king_of_hearts.png",
+    "ace_of_spade.png", "two_of_spade.png", "three_of_spade.png", "four_of_spade.png", "five_of_spade.png", "six_of_spade.png", "seven_of_spade.png", "eight_of_spade.png", "nine_of_spade.png", "ten_of_spade.png", "jack_of_spade.png", "queen_of_spade.png", "king_of_spade.png"]
+
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
 
