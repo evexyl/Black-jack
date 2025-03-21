@@ -13,21 +13,29 @@ def on_open_fenetre():
     fentre_regle.geometry("650x800")
 
 #Label
-    rule=tk.Label(fentre_regle,fg="green", font=('Arial',14),wraplength=600,
-            text="But du jeu : Atteindre un total de points le plus proche de 21 sans dépasser "
-              "ce nombre.\n"
-              
-              "Valeurs des cartes : les cartes de 2 à 10 valent leur valeur.Les "
-              "figures (Roi, Dame, Valet) valent 10 points. L'As vaut 1 ou 11 points (selon "
-              "ce qui vous avantage).\n "
+    #rule=tk.Label(fentre_regle,fg="green", font=('Arial',14),wraplength=600,
+    #        text="But du jeu : Atteindre un total de points le plus proche de 21 sans dépasser "
+    #          "ce nombre.\n"
+    #          
+    #          "Valeurs des cartes : les cartes de 2 à 10 valent leur valeur.Les "
+    #          "figures (Roi, Dame, Valet) valent 10 points. L'As vaut 1 ou 11 points (selon "
+    #          "ce qui vous avantage).\n "
+#
+    #          "Déroulement :Chaque joueur reçoit 2 cartes face visible, "
+    #          "et le croupier a une carte visible et une face cachée. Vous pouvez demander "
+    #          "d’autres cartes (tirer), ou garder votre total actuel (rester). Si vos cartes"
+    #          " dépassent 21, vous perdez (on appelle cela 'sauter'). \n "
+#
+    #          "Gagner : Vous gagnez si votre total est égal à 21 ou le plus proche possible sans dépasser cette valeur. "
+    #          "Un Blackjack (21 avec deux cartes seulement, As + 10 ou figure) est la meilleure main possible.")  #\n permet le retour a la ligne
+    current_dir = os.path.dirname(__file__)
+    blabla_path = os.path.join(current_dir, "regle python.txt")
+    with open(blabla_path, "r", encoding="utf-8") as file:
+        blablacar=file.read()
+    rule=tk.Text(fentre_regle, wrap=tk.WORD,fg="green", bg="Black", font=("Arial",14), borderwidth=0, highlightthickness=0)
+    rule.insert(tk.END, blablacar)
+    rule.config(state=tk.DISABLED)
 
-              "Déroulement :Chaque joueur reçoit 2 cartes face visible, "
-              "et le croupier a une carte visible et une face cachée. Vous pouvez demander "
-              "d’autres cartes (tirer), ou garder votre total actuel (rester). Si vos cartes"
-              " dépassent 21, vous perdez (on appelle cela 'sauter'). \n "
-
-              "Gagner : Vous gagnez si votre total est égal à 21 ou le plus proche possible sans dépasser cette valeur. "
-              "Un Blackjack (21 avec deux cartes seulement, As + 10 ou figure) est la meilleure main possible.")  #\n permet le retour a la ligne
     rule.pack()
 
 ##############################################################################################################################
@@ -37,7 +45,7 @@ def on_open_fenetre2():
     fenetre2 = tk.Toplevel()
     fenetre2.title("Black Jack JEU")
     fenetre2.geometry("1200x700")
-    fenetre2.config(bg = '#007a33')
+    fenetre2.config(bg = '#164e0a')
 
     def distribution():
         #utiliser random
@@ -53,24 +61,24 @@ def on_open_fenetre2():
         pass
 
     #LABELS
-    dealer = tk.Label(fenetre2, text ="Dealer", bg = '#007a33', fg = "black",)
+    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#164e0a', fg = "white",)
     dealer.place(x=150,y=165)
 
-    joeur = tk.Label(fenetre2, text ="Joeur", bg = '#007a33', fg = "black",)
-    joeur.place(x=350,y=165)
+    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#164e0a', fg = "white",)
+    joueur.place(x=350,y=165)
 
-    cmpt_d = tk.Label(fenetre2, text ="N", bg = '#007a33', fg = "black",)
+    cmpt_d = tk.Label(fenetre2, text ="N", bg = '#164e0a', fg = "white",)
     cmpt_d.place(x=250,y=165)
 
-    cmpt_j = tk.Label(fenetre2, text ="N", bg = '#007a33', fg = "black",)
+    cmpt_j = tk.Label(fenetre2, text ="N", bg = '#164e0a', fg = "white",)
     cmpt_j.place(x=450,y=165)
 
     #BOUTONS
-    deal = tk.Button(fenetre2, text = " DEAL ", bg = '#6cc24a', fg = 'white')
+    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#7c0a0a', fg = 'white')
     deal.configure(height=3, width=10)
     deal.place(x=200,y=300)
 
-    stand = tk.Button(fenetre2, text = " STAND ", bg = '#6cc24a', fg = 'white')
+    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#7c0a0a', fg = 'white')
     stand.configure(height=3, width=10)
     stand.place(x=300,y=300)
 
