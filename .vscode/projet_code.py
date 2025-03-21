@@ -85,14 +85,24 @@ def on_open_fenetre2():
     #CARTES + leurs labels (sauvez moi) 
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
+
     #clubs
     image_path = os.path.join(current_dir, "ace_of_clubs.png")
     ac = tk.PhotoImage(file = image_path)
+
     #ace_of_clubs = tk.resizeImage(ac, 125, 182)
     ace_of_clubs_l = tk.Label(fenetre2, image = ac)
     ace_of_clubs_l.place(x=600,y=600)
     #ace_of_clubs = tk.resizeImage(ac, 125, 182)
     #diamonds
+    diamant_path=os.path.join(current_dir, "ace_of_diamonds.png")
+    diam= PhotoImage(file=diamant_path)
+    diam=diam.subsample(4,4)
+    diama=tk.Label(fenetre2,image=diam)
+    diama.image=diam
+    diama.place(x=600,y=300)
+    
+    
     #heart
     #spades
 
