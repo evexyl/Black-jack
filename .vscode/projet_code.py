@@ -60,7 +60,7 @@ bj = tk.Label(fenetre1, text="Black Jack",bg = "Black", fg = "white", font=("Imp
 bj.place(x=150,y=165)
 
 #Bouttons
-start = tk.Button(fenetre1, text = " START ", bg = '#42529c', fg = 'white')
+start = tk.Button(fenetre1, text = " START ", bg = 'Black', fg = 'white')
 start.configure(height=5, width=30)
 start.place(x=200,y=350)
 
