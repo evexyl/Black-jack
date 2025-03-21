@@ -1,5 +1,6 @@
+from tkinter import *
 import tkinter as tk
-from tkinter import PhotoImage
+from PIL import Image, ImageTk
 import os
 from random import *
 
@@ -83,15 +84,20 @@ def on_open_fenetre2():
     stand.place(x=300,y=300)
 
     #CARTES + leurs labels (sauvez moi) 
+    cartes_photos = ["ace_of_clubs.png"]
+    cartes = [ace_of_clubs, two_of_clubs, three_of_clubs, four_of_clubs, five_of_clubs, six_of_clubs, seven_of_clubs, eight_of_clubs, nine_of_clubs, ten_of_clubs, jack_of_clubs, queen_of_clubs, king_of_clubs,
+                ace_of_diamonds, two_of_diamonds, three_of_diamonds, four_of_diamonds, five_of_diamonds, six_of_diamonds, seven_of_diamonds, eight_of_diamonds, nine_of_diamonds, ten_of_diamonds, jack_of_diamonds, queen_of_diamonds, king_of_diamonds,
+                 ace_of_hearts, two_of_hearts, three_of_hearts, four_of_hearts, five_of_hearts, six_of_hearts, seven_of_hearts, eight_of_hearts, nine_of_hearts, ten_of_hearts, jack_of_hearts, queen_of_hearts, king_of_hearts,
+                 ace_of_spade, two_of_spade, three_of_spade, four_of_spade, five_of_spade, six_of_spade, seven_of_spade, eight_of_spade, nine_of_spade, ten_of_spade, jack_of_spade, queen_of_spade, king_of_spade]
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
     #clubs
     image_path = os.path.join(current_dir, "ace_of_clubs.png")
+    ace_of_clubs = image_path.resize((125, 182))
     ac = tk.PhotoImage(file = image_path)
-    #ace_of_clubs = tk.resizeImage(ac, 125, 182)
     ace_of_clubs_l = tk.Label(fenetre2, image = ac)
-    ace_of_clubs_l.place(x=600,y=600)
-    #ace_of_clubs = tk.resizeImage(ac, 125, 182)
+    ace_of_clubs_l.place(x=400,y=200)
+    
     #diamonds
     #heart
     #spades
