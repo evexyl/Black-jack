@@ -103,27 +103,38 @@ def on_open_fenetre2():
     cartes_photos = ["ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
     "ace_of_diamonds.png", "two_of_diamonds.png", "three_of_diamonds.png", "four_of_diamonds.png", "five_of_diamonds.png", "six_of_diamonds.png", "seven_of_diamonds.png", "eight_of_diamonds.png", "nine_of_diamonds.png", "ten_of_diamonds.png", "jack_of_diamonds.png", "queen_of_diamonds.png", "king_of_diamonds.png",
     "ace_of_hearts.png", "two_of_hearts.png", "three_of_hearts.png", "four_of_hearts.png", "five_of_hearts.png", "six_of_hearts.png", "seven_of_hearts.png", "eight_of_hearts.png", "nine_of_hearts.png", "ten_of_hearts.png", "jack_of_hearts.png", "queen_of_hearts.png", "king_of_hearts.png",
-    "ace_of_spade.png", "two_of_spade.png", "three_of_spade.png", "four_of_spade.png", "five_of_spade.png", "six_of_spade.png", "seven_of_spade.png", "eight_of_spade.png", "nine_of_spade.png", "ten_of_spade.png", "jack_of_spade.png", "queen_of_spade.png", "king_of_spade.png"]
+    "ace_of_spades.png", "two_of_spades.png", "three_of_spades.png", "four_of_spades.png", "five_of_spades.png", "six_of_spades.png", "seven_of_spades.png", "eight_of_spades.png", "nine_of_spades.png", "ten_of_spades.png", "jack_of_spades.png", "queen_of_spades.png", "king_of_spades.png"]
 
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
 
-    for i in range (len(cartes)):
-        diamant_path=os.path.join(current_dir, "cartes_photos") 
-        diam= PhotoImage(file=diamant_path)
-        diam=diam.subsample(4,4)
-        diama=tk.Label(fenetre2,image=diam)
-        diama.image=diam
-        diama.place(x=600,y=300) 
+    image_refs = []
+
+    for i in range (len(cartes_photos)):
+        path = os.path.join(current_dir, cartes_photos[i])
+        nom = cartes_photos[i]   
+        base_name = nom.replace(".png", "")      
+        mot = PhotoImage(file = path).subsample(4, 4)
+        #mot = mot.subsample(4,4) 
+        #nom = mot + "s"
+        image_refs.append(mot)
+        carte = tk.Label(fenetre2, image = mot)
+        carte.image = mot
+        cartes_photos[base_name] = carte  
+        carte.place(x=600,y=300) 
+
+  
+    # Position the cards dynamically (13 per row)
+   # x_position = 50 + (i % 13) * 50  # 13 cards per row
+    #y_position = 50 + (i // 13) * 100  # Move to next row after 13 cards
+    #label.place(x=x_position, y=y_position)
 
     #clubs
     image_path = os.path.join(current_dir, "ace_of_clubs.png")
-    #ace_of_clubs = image_path.resize((125, 182))
+    ace_of_clubs = image_path.resize((125, 182))
     ac = tk.PhotoImage(file = image_path)
     #ace_of_clubs = tk.resizeImage(ac, 125, 182)
-    ac=ac.subsample(4,4)
     ace_of_clubs_l = tk.Label(fenetre2, image = ac)
-    ace_of_clubs_l.image=ac
     ace_of_clubs_l.place(x=400,y=200)
     
     #diamonds
@@ -141,6 +152,11 @@ def on_open_fenetre2():
     #heart
     #spades
 
+    cartes = {ace_of_clubs: 1, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6, seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10, jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
+                ace_of_diamonds: 1, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6, seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10, jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
+                ace_of_hearts: 1, two_of_heart: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6, seven_of_hearts: 7, eight_of_hearts: 8, nine_of_hearts: 9, ten_of_hearts: 10, jack_of_hearts: 10, queen_of_hearts: 10, king_of_hearts: 10,
+                ace_of_spade: 1, two_of_spade: 2, three_of_spade: 3, four_of_spade: 4, five_of_spade: 5, six_of_spade: 6, seven_of_spade: 7, eight_of_spade: 8, nine_of_spade: 9, ten_of_spade: 10, jack_of_spade: 10, queen_of_spade: 10, king_of_spade: 10}
+    
 ##############################################################################################################################
 #FENETRE 1:
 #config de fenetre + canvas
