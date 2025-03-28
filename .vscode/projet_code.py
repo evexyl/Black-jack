@@ -108,20 +108,28 @@ def on_open_fenetre2():
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
 
-    image_refs = []
-
+   # image_refs=[]
+    y_position = 300
+    overlap_offset=2
     for i in range (len(cartes_photos)):
         path = os.path.join(current_dir, cartes_photos[i])
-        nom = cartes_photos[i]   
-        base_name = nom.replace(".png", "")      
-        mot = PhotoImage(file = path).subsample(4, 4)
-        #mot = mot.subsample(4,4) 
-        #nom = mot + "s"
-        image_refs.append(mot)
-        carte = tk.Label(fenetre2, image = mot)
-        carte.image = mot
-        cartes_photos[base_name] = carte  
-        carte.place(x=600,y=300) 
+        #nom = cartes_photos[i]   
+        #base_name = nom.replace(".png", "")      
+        #mot = PhotoImage(file = path).subsample(4, 4)
+        ##mot = mot.subsample(4,4) 
+        ##nom = mot + "s"
+        ##image_refs.append(mot)
+        #carte = tk.Label(fenetre2, image = mot)
+        #carte.image = mot
+        #cartes_photos[base_name] = carte  
+        image=PhotoImage(file=path)
+        image=image.subsample(4,4)
+        iage=tk.Label(fenetre2, image=image)
+        iage.image=image
+        iage.place(x=600, y=y_position)
+        y_position+=overlap_offset
+
+        #carte.place(x=600,y=300) 
 
   
     # Position the cards dynamically (13 per row)
@@ -152,10 +160,6 @@ def on_open_fenetre2():
     #heart
     #spades
 
-    cartes = {ace_of_clubs: 1, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6, seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10, jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
-                ace_of_diamonds: 1, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6, seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10, jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
-                ace_of_hearts: 1, two_of_heart: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6, seven_of_hearts: 7, eight_of_hearts: 8, nine_of_hearts: 9, ten_of_hearts: 10, jack_of_hearts: 10, queen_of_hearts: 10, king_of_hearts: 10,
-                ace_of_spade: 1, two_of_spade: 2, three_of_spade: 3, four_of_spade: 4, five_of_spade: 5, six_of_spade: 6, seven_of_spade: 7, eight_of_spade: 8, nine_of_spade: 9, ten_of_spade: 10, jack_of_spade: 10, queen_of_spade: 10, king_of_spade: 10}
     
 ##############################################################################################################################
 #FENETRE 1:
