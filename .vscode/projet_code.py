@@ -113,6 +113,13 @@ def on_open_fenetre2():
     #y_position = 50 + (i // 13) * 100  # Move to next row after 13 cards
     #label.place(x=x_position, y=y_position)
 
+    #clubs
+    image_path = os.path.join(current_dir, "ace_of_clubs.png")
+    ace_of_clubs = image_path.resize((125, 182))
+    ac = tk.PhotoImage(file = image_path)
+    #ace_of_clubs = tk.resizeImage(ac, 125, 182)
+    ace_of_clubs_l = tk.Label(fenetre2, image = ac)
+    ace_of_clubs_l.place(x=400,y=200)
     
     #diamonds
     diamant_path=os.path.join(current_dir, "ace_of_diamonds.png")
