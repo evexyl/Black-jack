@@ -61,6 +61,22 @@ def on_open_fenetre2():
         #fonct
         pass
 
+    def compteur():
+        global cmpt
+        global joueur_score
+        global croupier_score
+
+        joueur_score+=carte_joueur
+        croupier_score+=carte_croupier
+
+        if joueur_score<=21 and joueur_score>croupier_score:
+            return "Joueur vainqueur"
+        elif joueur_score==croupier_score:
+            return "Egalité"
+        elif croupier_score<=21 and joueur_score<croupier_score:
+            return "Joueur loseur"
+
+
     #LABELS
     dealer = tk.Label(fenetre2, text ="Croupier", bg = '#164e0a', fg = "white",)
     dealer.place(x=150,y=165)
@@ -89,10 +105,6 @@ def on_open_fenetre2():
     "ace_of_hearts.png", "two_of_hearts.png", "three_of_hearts.png", "four_of_hearts.png", "five_of_hearts.png", "six_of_hearts.png", "seven_of_hearts.png", "eight_of_hearts.png", "nine_of_hearts.png", "ten_of_hearts.png", "jack_of_hearts.png", "queen_of_hearts.png", "king_of_hearts.png",
     "ace_of_spade.png", "two_of_spade.png", "three_of_spade.png", "four_of_spade.png", "five_of_spade.png", "six_of_spade.png", "seven_of_spade.png", "eight_of_spade.png", "nine_of_spade.png", "ten_of_spade.png", "jack_of_spade.png", "queen_of_spade.png", "king_of_spade.png"]
 
-    cartes = {ace_of_clubs: 1, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6, seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10, jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
-                ace_of_diamonds: 1, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6, seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10, jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
-                 ace_of_hearts: 1, two_of_heart: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6, seven_of_hearts: 7, eight_of_hearts: 8, nine_of_hearts: 9, ten_of_hearts: 10, jack_of_hearts: 10, queen_of_hearts: 10, king_of_hearts: 10,
-                 ace_of_spade: 1, two_of_spade: 2, three_of_spade: 3, four_of_spade: 4, five_of_spade: 5, six_of_spade: 6, seven_of_spade: 7, eight_of_spade: 8, nine_of_spade: 9, ten_of_spade: 10, jack_of_spade: 10, queen_of_spade: 10, king_of_spade: 10}
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
 
@@ -122,7 +134,10 @@ def on_open_fenetre2():
     diama.image=diam
     diama.place(x=600,y=300)
     
-    
+    cartes = {ace_of_clubs: 1, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6, seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10, jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
+                ace_of_diamonds: 1, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6, seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10, jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
+                 ace_of_hearts: 1, two_of_heart: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6, seven_of_hearts: 7, eight_of_hearts: 8, nine_of_hearts: 9, ten_of_hearts: 10, jack_of_hearts: 10, queen_of_hearts: 10, king_of_hearts: 10,
+                 ace_of_spades: 1, two_of_spades: 2, three_of_spades: 3, four_of_spades: 4, five_of_spades: 5, six_of_spades: 6, seven_of_spades: 7, eight_of_spades: 8, nine_of_spades: 9, ten_of_spades: 10, jack_of_spades: 10, queen_of_spades: 10, king_of_spades: 10}
     #heart
     #spades
 
