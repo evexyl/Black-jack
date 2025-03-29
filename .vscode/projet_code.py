@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 import os
-from random import *
+from random import shuffle, choice
 
 #Fenetre règle:
 #config de fenetre + canvas
@@ -49,17 +49,26 @@ def on_open_fenetre2():
     fenetre2.config(bg = '#164e0a')
 
     def distribution():
-        #utiliser random
-        #slider les cartes
-        pass
+        if cartes_photos:  # Si il reste des cartes à distribuer
+            carte_tiree = cartes_photos.pop()  # Retirer la dernière carte de la liste
+            path = os.path.join(current_dir, carte_tiree)  # Récupérer le chemin de la carte
+            image = PhotoImage(file=path).subsample(4, 4)  # Charger l'image
+            carte_label = tk.Label(fenetre2, image=image)  # Créer un label avec l'image
+            carte_label.image = image  # Garder la référence à l'image
+            carte_label.place(x=600, y=400)  # Placer la carte sur l'interface
+            compteur()  # Mettre à jour le score après chaque distribution
 
     def deal():
-        distribution()
-        
+        distribution()  # Distribution appelée depuis le bouton
 
     def stand():
-        #fonct
+        # Fonction pour rester
         pass
+
+    def melanger():
+        global cartes_photos
+        shuffle(cartes_photos) 
+
 
     def compteur():
         global cmpt
@@ -77,6 +86,15 @@ def on_open_fenetre2():
             return "Joueur loseur"
 
 
+
+    
+
+
+
+
+
+    
+    
     #LABELS
     dealer = tk.Label(fenetre2, text ="Croupier", bg = '#164e0a', fg = "white",)
     dealer.place(x=150,y=165)
@@ -91,13 +109,16 @@ def on_open_fenetre2():
     cmpt_j.place(x=450,y=165)
 
     #BOUTONS
-    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#7c0a0a', fg = 'white')
+    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#7c0a0a', fg = 'white', command = distribution)
     deal.configure(height=3, width=10)
     deal.place(x=200,y=300)
 
     stand = tk.Button(fenetre2, text = " RESTER ", bg = '#7c0a0a', fg = 'white')
     stand.configure(height=3, width=10)
     stand.place(x=300,y=300)
+
+    
+
 
     #CARTES + leurs labels (sauvez moi) 
     cartes_photos = ["ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
