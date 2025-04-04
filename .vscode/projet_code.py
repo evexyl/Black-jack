@@ -110,7 +110,7 @@ def on_open_fenetre2():
 
    # image_refs=[]
     y_position = 300
-    overlap_offset=2
+    overlap_offset=1
     for i in range (len(cartes_photos)):
         path = os.path.join(current_dir, cartes_photos[i])
         #nom = cartes_photos[i]   
