@@ -2,7 +2,12 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 import os
-from random import shuffle, choice
+from random import shuffle
+
+
+
+
+
 
 #Fenetre règle:
 #config de fenetre + canvas
@@ -47,16 +52,35 @@ def on_open_fenetre2():
     fenetre2.title("Black Jack JEU")
     fenetre2.geometry("1200x700")
     fenetre2.config(bg = '#164e0a')
+    
+    cartes_photos = [
+        "ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
+        "ace_of_diamonds.png", "two_of_diamonds.png", "three_of_diamonds.png", "four_of_diamonds.png", "five_of_diamonds.png", "six_of_diamonds.png", "seven_of_diamonds.png", "eight_of_diamonds.png", "nine_of_diamonds.png", "ten_of_diamonds.png", "jack_of_diamonds.png", "queen_of_diamonds.png", "king_of_diamonds.png",
+        "ace_of_hearts.png", "two_of_hearts.png", "three_of_hearts.png", "four_of_hearts.png", "five_of_hearts.png", "six_of_hearts.png", "seven_of_hearts.png", "eight_of_hearts.png", "nine_of_hearts.png", "ten_of_hearts.png", "jack_of_hearts.png", "queen_of_hearts.png", "king_of_hearts.png",
+        "ace_of_spades.png", "two_of_spades.png", "three_of_spades.png", "four_of_spades.png", "five_of_spades.png", "six_of_spades.png", "seven_of_spades.png", "eight_of_spades.png", "nine_of_spades.png", "ten_of_spades.png", "jack_of_spades.png", "queen_of_spades.png", "king_of_spades.png"
+    ]
+
+    current_dir = os.path.dirname(__file__)
+    shuffle(cartes_photos)
+    
+    # 📌 Précharger les images redimensionnées
+  
+    cartes_images = {}
+    for carte in cartes_photos:
+        path = os.path.join(current_dir, carte)
+        cartes_images[carte] = ImageTk.PhotoImage(Image.open(path).resize((125, 182)))
+
+
+    def melanger():
+        shuffle(cartes_photos)
 
     def distribution():
-        if cartes_photos:  
-            carte_tiree = cartes_photos.pop() 
-            path = os.path.join(current_dir, carte_tiree)  
-            image = PhotoImage(file=path).subsample(4, 4)  
-            carte_label = tk.Label(fenetre2, image=image)  
-            carte_label.image = image  
-            carte_label.place(x=600, y=400)  
-            compteur()  
+        if cartes_photos:
+            carte_tiree = cartes_photos.pop()
+            image = cartes_images[carte_tiree]
+            carte_label = tk.Label(fenetre2, image=image)
+            carte_label.image = image  # Évite la suppression par le garbage collector
+            carte_label.place(x=600, y=400)
 
     def deal():
         distribution()  # Distribution appelée depuis le bouton
@@ -65,9 +89,7 @@ def on_open_fenetre2():
         # Fonction pour rester
         pass
 
-    def melanger():
-        global cartes_photos
-        shuffle(cartes_photos) 
+
 
 
     def compteur():
