@@ -82,6 +82,10 @@ def on_open_fenetre2():
             cacher_boutons_choix_as()
             verifier_score()
 
+        # Désactiver les boutons CARTE ! et RESTER pendant le choix de l'As
+        deal_button.config(state=tk.DISABLED)
+        stand_button.config(state=tk.DISABLED)
+
         bouton_1 = tk.Button(fenetre2, text="1", command=lambda: choisir(1), bg='#a6c9ff', fg='white')
         bouton_11 = tk.Button(fenetre2, text="11", command=lambda: choisir(11), bg='#a6c9ff', fg='white')
         bouton_1.place(x=600, y=500)
