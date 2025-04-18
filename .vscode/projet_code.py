@@ -133,7 +133,7 @@ def on_open_fenetre2():
 
    # image_refs=[]
     y_position = 300
-    overlap_offset=2
+    overlap_offset=1
     for i in range (len(cartes_photos)):
         path = os.path.join(current_dir, cartes_photos[i])
         #nom = cartes_photos[i]   
@@ -161,20 +161,20 @@ def on_open_fenetre2():
     #label.place(x=x_position, y=y_position)
 
     #clubs
-    image_path = os.path.join(current_dir, "ace_of_clubs.png")
-    ace_of_clubs = image_path.resize((125, 182))
-    ac = tk.PhotoImage(file = image_path)
-    #ace_of_clubs = tk.resizeImage(ac, 125, 182)
-    ace_of_clubs_l = tk.Label(fenetre2, image = ac)
-    ace_of_clubs_l.place(x=400,y=200)
-    
-    #diamonds
-    diamant_path=os.path.join(current_dir, "ace_of_diamonds.png")
-    diam= PhotoImage(file=diamant_path)
-    diam=diam.subsample(4,4)
-    diama=tk.Label(fenetre2,image=diam)
-    diama.image=diam
-    diama.place(x=600,y=300)
+    #image_path = os.path.join(current_dir, "ace_of_clubs.png")
+    #ace_of_clubs = image_path.resize((125, 182))
+    #ac = tk.PhotoImage(file = image_path)
+    ##ace_of_clubs = tk.resizeImage(ac, 125, 182)
+    #ace_of_clubs_l = tk.Label(fenetre2, image = ac)
+    #ace_of_clubs_l.place(x=400,y=200)
+    #
+    ##diamonds
+    #diamant_path=os.path.join(current_dir, "ace_of_diamonds.png")
+    #diam= PhotoImage(file=diamant_path)
+    #diam=diam.subsample(4,4)
+    #diama=tk.Label(fenetre2,image=diam)
+    #diama.image=diam
+    #diama.place(x=600,y=300)
     
     cartes = {ace_of_clubs: 1, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6, seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10, jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
                 ace_of_diamonds: 1, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6, seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10, jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
