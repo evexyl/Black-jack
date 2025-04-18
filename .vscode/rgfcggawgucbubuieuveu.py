@@ -46,17 +46,37 @@ def on_open_fenetre2():
     fenetre2 = tk.Toplevel()
     fenetre2.title("Black Jack JEU")
     fenetre2.geometry("1200x700")
-    fenetre2.config(bg = '#164e0a')
+    fenetre2.config(bg = '#a6ffb0')
 
     def distribution():
         if cartes_photos: 
             carte_tiree = cartes_photos.pop()  
-            path = os.path.join(current_dir, carte_tiree)  
+            path = os.path.join(current_dir, carte_tiree) 
             image = PhotoImage(file=path).subsample(4, 4)  
-            carte_label = tk.Label(fenetre2, image=image)  
-            carte_label.image = image 
+            carte_label = tk.Label(fenetre2, image=image) 
+            carte_label.image = image  
             carte_label.place(x=600, y=y_position)  
-            compteur() 
+            compteur()  
+
+            target_x, target_y = 400, 600
+            def move(speed = 15): #ne marche pas encore dont push
+                x = carte_label.winfo_x()
+                y = carte_label.winfo_y()
+
+                dx = target_x - x
+                dy = target_y - y
+                distance = (dx**2 + dy**2)**0.5
+
+                if distance < speed:
+                    carte_label.place(x=target_x, y=target_y)  # Snap to position
+                else:
+                    step_x = dx / distance * speed
+                    step_y = dy / distance * speed
+                    carte_label.place(x=x + step_x, y=y + step_y)
+                    carte_label.after(16, move)  
+
+            carte_label.after(50, move)
+
     def deal():
         distribution()  # Distribution appelée depuis le bouton
 
@@ -85,36 +105,26 @@ def on_open_fenetre2():
             return "Egalité"
         elif croupier_score<=21 and joueur_score<croupier_score:
             return "Joueur loseur"
-
-
-
-    
-
-
-
-
-
-    
     
     #LABELS
-    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#164e0a', fg = "white",)
+    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#a6ffb0', fg = "black",)
     dealer.place(x=150,y=165)
 
-    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#164e0a', fg = "white",)
+    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#a6ffb0', fg = "black",)
     joueur.place(x=350,y=165)
 
-    cmpt_d = tk.Label(fenetre2, text ="N", bg = '#164e0a', fg = "white",)
+    cmpt_d = tk.Label(fenetre2, text ="N", bg = '#a6ffb0', fg = "black",)
     cmpt_d.place(x=250,y=165)
 
-    cmpt_j = tk.Label(fenetre2, text ="N", bg = '#164e0a', fg = "white",)
+    cmpt_j = tk.Label(fenetre2, text ="N", bg = '#a6ffb0', fg = "black",)
     cmpt_j.place(x=450,y=165)
 
     #BOUTONS
-    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#7c0a0a', fg = 'white', command = distribution)
+    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#a6f6ff', fg = 'black', command = distribution)
     deal.configure(height=3, width=10)
     deal.place(x=200,y=300)
 
-    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#7c0a0a', fg = 'white', command= stand)
+    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#a6f6ff', fg = 'black', command= stand)
     stand.configure(height=3, width=10)
     stand.place(x=300,y=300)
 
@@ -122,11 +132,6 @@ def on_open_fenetre2():
     pp = tk.Canvas(fenetre2, width = 1200, height = 300, bg = '#ffa6c9')
     pp.place(x = 0, y = 400)
 
-    
-    cartes = {"ace_of_clubs": 1, "two_of_clubs": 2, "three_of_clubs": 3, "four_of_clubs": 4, "five_of_clubs": 5, "six_of_clubs": 6, "seven_of_clubs": 7, "eight_of_clubs": 8, "nine_of_clubs": 9, "ten_of_clubs": 10, "jack_of_clubs": 10, "queen_of_clubs": 10, "king_of_clubs": 10,
-                "ace_of_diamonds": 1, "two_of_diamonds": 2, "three_of_diamonds": 3, "four_of_diamonds": 4, "five_of_diamonds": 5, "six_of_diamonds": 6, "seven_of_diamonds": 7, "eight_of_diamonds": 8, "nine_of_diamonds": 9, "ten_of_diamonds": 10, "jack_of_diamonds":10, "queen_of_diamonds": 10, "king_of_diamonds": 10,
-                 "ace_of_hearts": 1, "two_of_heart": 2, "three_of_hearts": 3, "four_of_hearts": 4, "five_of_hearts": 5, "six_of_hearts": 6, "seven_of_hearts": 7, "eight_of_hearts": 8, "nine_of_hearts": 9, "ten_of_hearts": 10, "jack_of_hearts": 10, "queen_of_hearts": 10, "king_of_hearts": 10,
-                 "ace_of_spades": 1, "two_of_spades": 2, "three_of_spades": 3, "four_of_spades": 4, "five_of_spades": 5, "six_of_spades": 6, "seven_of_spades": 7, "eight_of_spades": 8, "nine_of_spades": 9, "ten_of_spades": 10, "jack_of_spades": 10, "queen_of_spades": 10, "king_of_spades": 10}
    
    # Générer un dictionnaire associant les noms des cartes à leurs fichiers image
     cartes_def= {carte.replace(".png", ""): carte for carte in cartes_photos}
