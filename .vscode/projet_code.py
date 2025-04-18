@@ -51,11 +51,11 @@ def on_open_fenetre2():
     def distribution():
         if cartes_photos:  # Si il reste des cartes à distribuer
             carte_tiree = cartes_photos.pop()  # Retirer la dernière carte de la liste
-            path = os.path.join(current_dir, carte_tiree)  # Récupérer le chemin de la carte
+            #path = os.path.join(current_dir, carte_tiree)  # Récupérer le chemin de la carte
             image = PhotoImage(file=path).subsample(4, 4)  # Charger l'image
             carte_label = tk.Label(fenetre2, image=image)  # Créer un label avec l'image
             carte_label.image = image  # Garder la référence à l'image
-            carte_label.place(x=600, y=400)  # Placer la carte sur l'interface
+            carte_label.place(x=600, y=y_position)  # Placer la carte sur l'interface
             compteur()  # Mettre à jour le score après chaque distribution
 
     def deal():
@@ -74,6 +74,8 @@ def on_open_fenetre2():
         global cmpt
         global joueur_score
         global croupier_score
+
+        carte_joueur 
 
         joueur_score+=carte_joueur
         croupier_score+=carte_croupier
@@ -113,12 +115,19 @@ def on_open_fenetre2():
     deal.configure(height=3, width=10)
     deal.place(x=200,y=300)
 
-    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#7c0a0a', fg = 'white')
+    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#7c0a0a', fg = 'white', command= stand)
     stand.configure(height=3, width=10)
     stand.place(x=300,y=300)
 
     
-
+    
+    cartes = {"ace_of_clubs": 1, "two_of_clubs": 2, "three_of_clubs": 3, "four_of_clubs": 4, "five_of_clubs": 5, "six_of_clubs": 6, "seven_of_clubs": 7, "eight_of_clubs": 8, "nine_of_clubs": 9, "ten_of_clubs": 10, "jack_of_clubs": 10, "queen_of_clubs": 10, "king_of_clubs": 10,
+                "ace_of_diamonds": 1, "two_of_diamonds": 2, "three_of_diamonds": 3, "four_of_diamonds": 4, "five_of_diamonds": 5, "six_of_diamonds": 6, "seven_of_diamonds": 7, "eight_of_diamonds": 8, "nine_of_diamonds": 9, "ten_of_diamonds": 10, "jack_of_diamonds":10, "queen_of_diamonds": 10, "king_of_diamonds": 10,
+                 "ace_of_hearts": 1, "two_of_heart": 2, "three_of_hearts": 3, "four_of_hearts": 4, "five_of_hearts": 5, "six_of_hearts": 6, "seven_of_hearts": 7, "eight_of_hearts": 8, "nine_of_hearts": 9, "ten_of_hearts": 10, "jack_of_hearts": 10, "queen_of_hearts": 10, "king_of_hearts": 10,
+                 "ace_of_spades": 1, "two_of_spades": 2, "three_of_spades": 3, "four_of_spades": 4, "five_of_spades": 5, "six_of_spades": 6, "seven_of_spades": 7, "eight_of_spades": 8, "nine_of_spades": 9, "ten_of_spades": 10, "jack_of_spades": 10, "queen_of_spades": 10, "king_of_spades": 10}
+   
+   # Générer un dictionnaire associant les noms des cartes à leurs fichiers image
+    cartes_def= {carte.replace(".png", ""): carte for carte in cartes_photos}
 
     #CARTES + leurs labels (sauvez moi) 
     cartes_photos = ["ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
@@ -149,8 +158,7 @@ def on_open_fenetre2():
         iage.image=image
         iage.place(x=600, y=y_position)
         y_position+=overlap_offset
-
-        #carte.place(x=600,y=300) 
+         #carte.place(x=600,y=300) 
 
   
     # Position the cards dynamically (13 per row)
@@ -174,10 +182,7 @@ def on_open_fenetre2():
     #diama.image=diam
     #diama.place(x=600,y=300)
     
-    cartes = {ace_of_clubs: 1, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6, seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10, jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
-                ace_of_diamonds: 1, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6, seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10, jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
-                 ace_of_hearts: 1, two_of_heart: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6, seven_of_hearts: 7, eight_of_hearts: 8, nine_of_hearts: 9, ten_of_hearts: 10, jack_of_hearts: 10, queen_of_hearts: 10, king_of_hearts: 10,
-                 ace_of_spades: 1, two_of_spades: 2, three_of_spades: 3, four_of_spades: 4, five_of_spades: 5, six_of_spades: 6, seven_of_spades: 7, eight_of_spades: 8, nine_of_spades: 9, ten_of_spades: 10, jack_of_spades: 10, queen_of_spades: 10, king_of_spades: 10}
+    
     #heart
     #spades
 
