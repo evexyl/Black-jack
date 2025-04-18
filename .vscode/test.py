@@ -54,7 +54,7 @@ def on_open_fenetre2():
     }
 
     def get_valeur(carte_filename):
-        nom = carte_filename.split('_of_')[0]  # "ace", "two", etc.
+        nom = carte_filename.split('_of_')[0]
         return valeur_cartes[nom]
 
     def melanger():
@@ -65,11 +65,10 @@ def on_open_fenetre2():
     y_position = 300
     overlap_offset = 1
     score_joueur = 0
-    as_valeur = None  # Cette variable stocke la valeur de l'As si choisi
-    boutons_choix_as = []  # Liste pour garder les boutons de choix de l'As
+    boutons_choix_as = []
 
     def distribution():
-        nonlocal y_position, score_joueur, as_valeur
+        nonlocal y_position, score_joueur, boutons_choix_as
 
         if cartes_photos:
             carte_tiree = cartes_photos.pop()
@@ -78,54 +77,42 @@ def on_open_fenetre2():
             carte_label = tk.Label(fenetre2, image=image)
             carte_label.image = image
             carte_label.place(x=600, y=y_position)
-            y_position += overlap_offset
+            
 
             nom_carte = carte_tiree.split('_')[0]
             valeur = get_valeur(carte_tiree)
 
-            if nom_carte == "ace" and as_valeur is None:  # Si c'est un As et qu'aucune valeur n'a été choisie
-                afficher_boutons_choix_as(valeur)
+            if nom_carte == "ace":
+                afficher_boutons_choix_as()
             else:
                 score_joueur += valeur
                 joueur.config(text=f"Joueur ({score_joueur})")
 
-    def afficher_boutons_choix_as(valeur):
-        def choisir_1():
-            nonlocal as_valeur
-            as_valeur = 1
-            mise_a_jour_score()
+    def afficher_boutons_choix_as():
+        nonlocal boutons_choix_as, score_joueur
+
+        cacher_boutons_choix_as()
+
+        def choisir(valeur_as):
+            nonlocal score_joueur
+            score_joueur += valeur_as
+            joueur.config(text=f"Joueur ({score_joueur})")
             cacher_boutons_choix_as()
 
-        def choisir_11():
-            nonlocal as_valeur
-            as_valeur = 11
-            mise_a_jour_score()
-            cacher_boutons_choix_as()
-
-        # Créer et placer les boutons
-        bouton_1 = tk.Button(fenetre2, text="1", command=choisir_1, bg='#a6c9ff', fg='white')
+        bouton_1 = tk.Button(fenetre2, text="1", command=lambda: choisir(1), bg='#a6c9ff', fg='white')
         bouton_1.place(x=600, y=500)
 
-        bouton_11 = tk.Button(fenetre2, text="11", command=choisir_11, bg='#a6c9ff', fg='white')
+        bouton_11 = tk.Button(fenetre2, text="11", command=lambda: choisir(11), bg='#a6c9ff', fg='white')
         bouton_11.place(x=650, y=500)
 
-        # Ajouter les boutons à la liste pour pouvoir les supprimer
         boutons_choix_as.append(bouton_1)
         boutons_choix_as.append(bouton_11)
 
     def cacher_boutons_choix_as():
-        # Supprimer les boutons après que l'option ait été choisie
+        nonlocal boutons_choix_as
         for bouton in boutons_choix_as:
             bouton.destroy()
-
-        # Réinitialiser la liste des boutons
         boutons_choix_as.clear()
-
-    def mise_a_jour_score():
-        nonlocal score_joueur
-        if as_valeur is not None:
-            score_joueur += as_valeur
-            joueur.config(text=f"Joueur ({score_joueur})")
 
     def deal():
         distribution()
@@ -137,7 +124,7 @@ def on_open_fenetre2():
         pass
 
     def revenir_accueil():
-        fenetre2.destroy()  # Ferme la fenêtre de jeu et revient à l'accueil
+        fenetre2.destroy()
 
     # Labels
     dealer = tk.Label(fenetre2, text="Croupier", bg='#c9ffa6', fg="black")
@@ -161,10 +148,9 @@ def on_open_fenetre2():
     stand_button.configure(height=3, width=10)
     stand_button.place(x=300, y=300)
 
-    
-    accueil_button = tk.Button(fenetre2, text=" ACCUEIL ", bg='white', fg='black', command=revenir_accueil)
-    accueil_button.configure(height=2, width=8)
-    accueil_button.place(x=20, y=20)  # Placer en haut à gauche
+    accueil_button = tk.Button(fenetre2, text="🏠", bg='white', fg='black', command=revenir_accueil)
+    accueil_button.configure(height=1, width=2)
+    accueil_button.place(x=20, y=20)
 
 # Fenetre principale
 fenetre1 = tk.Tk()
