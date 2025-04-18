@@ -55,11 +55,8 @@ def on_open_fenetre2():
             image = PhotoImage(file=path).subsample(4, 4)  # Charger l'image
             carte_label = tk.Label(fenetre2, image=image)  # Créer un label avec l'image
             carte_label.image = image  # Garder la référence à l'image
-            carte_label.place(x=600, y=400)  # Placer la carte sur l'interface
-            compteur()  # Mettre à jour le score après chaque distribution
-
-    def deal():
-        distribution()  # Distribution appelée depuis le bouton
+            carte_label.place(x=600, y=400)  
+            compteur()
 
     def stand():
         # Fonction pour rester
