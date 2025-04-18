@@ -60,23 +60,100 @@ def on_open_fenetre2():
     def melanger():
         shuffle(cartes_photos)
 
-    melanger()
+    def revenir_accueil():
+        fenetre2.destroy()
 
+    # Variables de jeu
     y_position = 300
-    overlap_offset = 1
+    overlap_offset = 30
     score_joueur = 0
+    as_valeur = None
     boutons_choix_as = []
+    cartes_tirees = []
+    cartes_labels = []
+    result_label = None
+    recommencer_button = None
+
+    def afficher_boutons_choix_as():
+        def choisir(val):
+            nonlocal as_valeur
+            as_valeur = val
+            mise_a_jour_score()
+            cacher_boutons_choix_as()
+            verifier_score()
+
+        bouton_1 = tk.Button(fenetre2, text="1", command=lambda: choisir(1), bg='#a6c9ff', fg='white')
+        bouton_11 = tk.Button(fenetre2, text="11", command=lambda: choisir(11), bg='#a6c9ff', fg='white')
+        bouton_1.place(x=600, y=500)
+        bouton_11.place(x=650, y=500)
+        boutons_choix_as.extend([bouton_1, bouton_11])
+
+    def cacher_boutons_choix_as():
+        for bouton in boutons_choix_as:
+            bouton.destroy()
+        boutons_choix_as.clear()
+
+    def mise_a_jour_score():
+        nonlocal score_joueur
+        if as_valeur is not None:
+            score_joueur += as_valeur
+            joueur.config(text=f"Joueur ({score_joueur})")
+
+    def verifier_score():
+        nonlocal result_label, recommencer_button
+        if score_joueur == 21:
+            texte = "Black Jack - Super gagné 🥳" if len(cartes_tirees) == 2 else "Gagné ! 🎉"
+            result_label = tk.Label(fenetre2, text=texte, fg='green', bg='#c9ffa6', font=("Arial", 20, "bold"))
+            result_label.place(x=800, y=200)
+            fin_de_jeu()
+        elif score_joueur > 21:
+            result_label = tk.Label(fenetre2, text="Perdu, bouh 😢", fg='red', bg='#c9ffa6', font=("Arial", 20, "bold"))
+            result_label.place(x=800, y=200)
+            fin_de_jeu()
+
+    def fin_de_jeu():
+        deal_button.config(state=DISABLED)
+        stand_button.config(state=DISABLED)
+        if recommencer_button is None:
+            creer_bouton_recommencer()
+
+    def creer_bouton_recommencer():
+        nonlocal recommencer_button
+        recommencer_button = tk.Button(fenetre2, text="Recommencer", command=recommencer, bg='#a6c9ff', fg='black')
+        recommencer_button.place(x=800, y=250)
+
+    def recommencer():
+        nonlocal y_position, score_joueur, as_valeur, cartes_tirees, result_label, recommencer_button
+        for label in cartes_labels:
+            label.destroy()
+        cartes_labels.clear()
+        cartes_tirees.clear()
+        y_position = 300
+        score_joueur = 0
+        as_valeur = None
+        joueur.config(text="Joueur (0)")
+        cacher_boutons_choix_as()
+        if result_label:
+            result_label.destroy()
+            result_label = None
+        if recommencer_button:
+            recommencer_button.destroy()
+            recommencer_button = None
+        deal_button.config(state=NORMAL)
+        stand_button.config(state=NORMAL)
+        melanger()
 
     def distribution():
-        nonlocal y_position, score_joueur, boutons_choix_as
-
+        nonlocal y_position, score_joueur, as_valeur
         if cartes_photos:
             carte_tiree = cartes_photos.pop()
+            cartes_tirees.append(carte_tiree)
             path = os.path.join(current_dir, carte_tiree)
             image = PhotoImage(file=path).subsample(4, 4)
             carte_label = tk.Label(fenetre2, image=image)
             carte_label.image = image
             carte_label.place(x=600, y=y_position)
+            cartes_labels.append(carte_label)
             
 
             nom_carte = carte_tiree.split('_')[0]
@@ -87,59 +164,20 @@ def on_open_fenetre2():
             else:
                 score_joueur += valeur
                 joueur.config(text=f"Joueur ({score_joueur})")
-
-    def afficher_boutons_choix_as():
-        nonlocal boutons_choix_as, score_joueur
-
-        cacher_boutons_choix_as()
-
-        def choisir(valeur_as):
-            nonlocal score_joueur
-            score_joueur += valeur_as
-            joueur.config(text=f"Joueur ({score_joueur})")
-            cacher_boutons_choix_as()
-
-        bouton_1 = tk.Button(fenetre2, text="1", command=lambda: choisir(1), bg='#a6c9ff', fg='white')
-        bouton_1.place(x=600, y=500)
-
-        bouton_11 = tk.Button(fenetre2, text="11", command=lambda: choisir(11), bg='#a6c9ff', fg='white')
-        bouton_11.place(x=650, y=500)
-
-        boutons_choix_as.append(bouton_1)
-        boutons_choix_as.append(bouton_11)
-
-    def cacher_boutons_choix_as():
-        nonlocal boutons_choix_as
-        for bouton in boutons_choix_as:
-            bouton.destroy()
-        boutons_choix_as.clear()
+                verifier_score()
 
     def deal():
         distribution()
 
     def stand():
-        pass
+        fin_de_jeu()
 
-    def compteur():
-        pass
-
-    def revenir_accueil():
-        fenetre2.destroy()
-
-    # Labels
+    # UI
     dealer = tk.Label(fenetre2, text="Croupier", bg='#c9ffa6', fg="black")
     dealer.place(x=150, y=165)
-
     joueur = tk.Label(fenetre2, text="Joueur (0)", bg='#c9ffa6', fg="black")
     joueur.place(x=350, y=165)
 
-    cmpt_d = tk.Label(fenetre2, text="N", bg='#c9ffa6', fg="black")
-    cmpt_d.place(x=250, y=165)
-
-    cmpt_j = tk.Label(fenetre2, text="", bg='#c9ffa6', fg="black")
-    cmpt_j.place(x=450, y=165)
-
-    # Boutons
     deal_button = tk.Button(fenetre2, text=" CARTE ! ", bg='#a6c9ff', fg='black', command=deal)
     deal_button.configure(height=3, width=10)
     deal_button.place(x=200, y=300)
@@ -148,9 +186,11 @@ def on_open_fenetre2():
     stand_button.configure(height=3, width=10)
     stand_button.place(x=300, y=300)
 
-    accueil_button = tk.Button(fenetre2, text="🏠", bg='white', fg='black', command=revenir_accueil)
+    accueil_button = tk.Button(fenetre2, text="🏠", font=("Arial", 12), bg='white', fg='black', command=revenir_accueil)
     accueil_button.configure(height=1, width=2)
     accueil_button.place(x=20, y=20)
+
+    melanger()
 
 # Fenetre principale
 fenetre1 = tk.Tk()
