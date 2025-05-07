@@ -46,27 +46,41 @@ def on_open_fenetre2():
     fenetre2 = tk.Toplevel()
     fenetre2.title("Black Jack JEU")
     fenetre2.geometry("1200x700")
-    fenetre2.config(bg = '#164e0a')
+    fenetre2.config(bg = '#c9ffa6')
+    pp = tk.Canvas(fenetre2, width = 1200, height = 300, bg = '#ffa6c9')
+    pp.place(x = 0, y = 400)
 
-    def distribution():
-        if cartes_photos: 
-            carte_tiree = cartes_photos.pop()  
-            path = os.path.join(current_dir, carte_tiree)  
-            image = PhotoImage(file=path).subsample(4, 4)  
-            carte_label = tk.Label(fenetre2, image=image)  
-            carte_label.image = image 
-            carte_label.place(x=600, y=y_position)  
-            compteur() 
-    def deal():
-        distribution()  # Distribution appelée depuis le bouton
+   
 
     def stand():
         # Fonction pour rester
         pass
 
-    def melanger():
-        global cartes_photos
-        shuffle(cartes_photos) 
+    def melanger():# #mélanger les cartes
+        shuffle(cartes_photos)    
+
+
+    def distribution (): #distribuer les cartes
+        nonlocal y_position, score_joueur, as_valeur
+        if cartes_photos: #vérifie qu'il rest des cartes dans le paquet
+            carte_tiree = cartes_photos.pop() #prend la dernièere carte du paquet
+            carte_tiree.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
+            path = os.path.join(current_dir, carte_tiree) #affichage des cartes
+            image = PhotoImage(file=path).subsample(4,4)
+            carte_label = tk.label(fenetre2, image=image)
+            carte_label.image = image
+            carte_label.place (x=600, y = y_position)
+            cartes_labels.append(carte_label)    
+            nom_carte = carte_tiree.split('_')[0]#nom de la carte avec sa vealeur associée
+            valeur = get_valeur(carte_tiree)    
+            if nom_carte == 'ace': #choix 1 ou 11 + relier au compteur
+                afficher_boutons_choix_as()
+            else:
+                score_joueur += valeur #ajout valeur de la carte au score
+                joueur.config(text = f'Joueur({score_joueur})')
+                verifier_score() #est-ce que le joueur a gagné ou perdu ?
+    def deal ():
+        distribution()
 
 
     def compteur():
@@ -97,30 +111,29 @@ def on_open_fenetre2():
     
     
     #LABELS
-    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#164e0a', fg = "white",)
+    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#c9ffa6', fg = "black",font = ("16"))
     dealer.place(x=150,y=165)
 
-    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#164e0a', fg = "white",)
+    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#c9ffa6', fg = "black",font = ("16"))
     joueur.place(x=350,y=165)
 
-    cmpt_d = tk.Label(fenetre2, text ="N", bg = '#164e0a', fg = "white",)
+    cmpt_d = tk.Label(fenetre2, text ="N", bg = '#c9ffa6', fg = "black",font = ("16"))
     cmpt_d.place(x=250,y=165)
 
-    cmpt_j = tk.Label(fenetre2, text ="N", bg = '#164e0a', fg = "white",)
+    cmpt_j = tk.Label(fenetre2, text ="N", bg = '#c9ffa6', fg = "black",font = ("16"))
     cmpt_j.place(x=450,y=165)
 
     #BOUTONS
-    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#7c0a0a', fg = 'white', command = distribution)
+    deal = tk.Button(fenetre2, text = " CARTE ! ", bg = '#a6c9ff', fg = 'black', command = deal)
     deal.configure(height=3, width=10)
     deal.place(x=200,y=300)
 
-    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#7c0a0a', fg = 'white', command= stand)
+    stand = tk.Button(fenetre2, text = " RESTER ", bg = '#a6c9ff', fg = 'black', command= stand)
     stand.configure(height=3, width=10)
     stand.place(x=300,y=300)
 
-    #CANVAS
-    pp = tk.Canvas(fenetre2, width = 1200, height = 300, bg = '#ffa6c9')
-    pp.place(x = 0, y = 400)
+    
+    
 
     
     cartes = {"ace_of_clubs": 1, "two_of_clubs": 2, "three_of_clubs": 3, "four_of_clubs": 4, "five_of_clubs": 5, "six_of_clubs": 6, "seven_of_clubs": 7, "eight_of_clubs": 8, "nine_of_clubs": 9, "ten_of_clubs": 10, "jack_of_clubs": 10, "queen_of_clubs": 10, "king_of_clubs": 10,
