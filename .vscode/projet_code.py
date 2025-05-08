@@ -138,7 +138,7 @@ def on_open_fenetre2():
             y_position+=30
 
     def distribution (): #distribuer les cartes
-        nonlocal y_position, score_joueur, valeur_as
+        nonlocal y_position, score_joueur, valeur_as, nbcarte
         if cartes_photos: #vérifie qu'il rest des cartes dans le paquet
             carte_tiree = cartes_photos.pop() #prend la dernièere carte du paquet
             cartes_tirees.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
@@ -156,6 +156,27 @@ def on_open_fenetre2():
                 score_joueur += valeur #ajout valeur de la carte au score
                 joueur.config(text = f'Joueur({score_joueur})')
                 compteur() #est-ce que le joueur a gagné ou perdu ?
+
+            target_x, target_y = 100, 450
+            def move(speed = 20): 
+                x = carte_label.winfo_x()
+                y = carte_label.winfo_y()
+
+                dx = target_x - x
+                dy = target_y - y
+                distance = (dx**2 + dy**2)**0.5
+
+                if distance < speed:
+                    for i in range(nbcarte):
+                        carte_label.place(x = target_x, y = target_y) 
+                        x += 150
+                else:
+                    step_x = dx / distance * speed
+                    step_y = dy / distance * speed
+                    carte_label.place(x=x + step_x, y=y + step_y)
+                    carte_label.after(16, move)  
+
+            carte_label.after(50, move)
     
     def distribution_croupier():
         nonlocal score_croupier
@@ -209,6 +230,7 @@ def on_open_fenetre2():
 
     def deal ():
         distribution()
+        nbcarte += 1
 
     def stand():
         # Fonction pour rester
