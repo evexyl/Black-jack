@@ -50,6 +50,39 @@ def on_open_fenetre2():
     pp = tk.Canvas(fenetre2, width = 1200, height = 300, bg = '#ffa6c9')
     pp.place(x = 0, y = 400)
 
+    def melanger():# #mélanger les cartes
+        shuffle(cartes_photos) 
+
+
+    boutons_choix_as = []
+
+    def choix_as():
+        def choisir (val):
+            nonlocal valeur_as
+            valeur_as=val
+            mise_a_jour_score()#met à jour le score du joueur
+            cacher_boutons_choix_as()
+            verifier_score()#permet d'afficher si c'est perdu ou gagné selon le score
+        deal.config(state=tk.disabled)#désactive les boutons le temps du choix
+        stand.config(state=tk.disabled)
+        bouton_1 = tk.button(fenetre2, text = '1', command=lambda:choisir(1), bg = '#a6c9ff', fg = "black")#définitions des boutons
+        bouton_11 = tk.button(fenetre2, text = '11', command=lambda:choisir(11), bg = '#a6c9ff', fg = "black")
+        bouton_1.place = (x=600, y=500)#placement des boutons
+        bouton_11.place = (x=650, y=500)
+        boutons_choix_as.append(bouton_1)#créer une liste pour que les boutons disparaissent après
+        boutons_choix_as.append(bouton_11)
+    
+    def boutons_as_disparus():#disparition des boutons
+        for boutons in boutons_choix_as:
+            boutons.destroy()
+
+
+
+
+    
+
+
+
 
     #Variables du jeu
     y_position=300
@@ -75,9 +108,32 @@ def on_open_fenetre2():
         nom=carte_filename.split("_of_")[0]
         return cartes_valeur[nom]
 
-    def melanger():# #mélanger les cartes
-        shuffle(cartes_photos)    
+       
 
+    def bouton_recommencer():
+        recommencer_button = tk.Button(fenetre2, text="Recommencer", 
+                                   command=lambda: [
+                                       # Réinitialisation des variables
+                                       cartes_labels.clear(),
+                                       cartes_tirees.clear(),
+                                       cartes_photos.extend(cartes_photos_initial),  # Recharger les cartes -> IA
+                                       y_position := 300,  # Position du joueur
+                                       score_joueur := 0,  # Réinitialiser le score
+                                       as_valeur := None,  # Réinitialiser la valeur de l'As
+                                       joueur.config(text="Joueur (0)"),  # Mettre à jour l'affichage du score
+                                       boutons_as_disparus(),  # Cacher les boutons de choix de l'As
+                                       # Réactiver les boutons du jeu
+                                       deal_button.config(state=NORMAL),
+                                       stand_button.config(state=NORMAL),
+                                       # Supprimer le résultat affiché (gagné ou perdu)
+                                       result_label.destroy() if result_label else None,
+                                       # Réinitialiser le bouton recommencer
+                                       recommencer_button.destroy(),
+                                       recommencer_button = None,  # Réinitialiser la référence
+                                       melanger()  # Mélanger les cartes à nouveau
+                                   ],
+                                   bg='#a6c9ff', fg='black')
+        recommencer_button.place(x=800, y=250)
 
     def donner_2_cartes(joueur):
         nonlocal y_position, y_position_croupier, score_joueur,score_croupier
