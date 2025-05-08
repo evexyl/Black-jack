@@ -57,11 +57,15 @@ def on_open_fenetre2():
 
     def choix_as():
         def choisir (val):
-            nonlocal valeur_as
+            nonlocal valeur_as, score_joueur
             valeur_as=val
+            score_joueur+=valeur_as
+            joueur.config(text=f"Joueur({score_joueur})")#IA
+            choix_as_disparus()
             compteur()#met à jour le score du joueur
-            cacher_boutons_choix_as()
-            #permet d'afficher si c'est perdu ou gagné selon le score
+            tirer.config(state=tk.NORMAL)
+            rester.config(state=tk.NORMAL)
+            
         tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
         rester.config(state=tk.DISABLED)
         bouton_1 = tk.Button(fenetre2, text = '1', command=lambda:choisir(1), bg = '#a6c9ff', fg = "black")#définitions des boutons
