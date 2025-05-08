@@ -14,21 +14,6 @@ def on_open_fenetre():
     fentre_regle.geometry("650x800")
 
 #Label
-    #rule=tk.Label(fentre_regle,fg="green", font=('Arial',14),wraplength=600,
-    #        text="But du jeu : Atteindre un total de points le plus proche de 21 sans dépasser "
-    #          "ce nombre.\n"
-    #          
-    #          "Valeurs des cartes : les cartes de 2 à 10 valent leur valeur.Les "
-    #          "figures (Roi, Dame, Valet) valent 10 points. L'As vaut 1 ou 11 points (selon "
-    #          "ce qui vous avantage).\n "
-#
-    #          "Déroulement :Chaque joueur reçoit 2 cartes face visible, "
-    #          "et le croupier a une carte visible et une face cachée. Vous pouvez demander "
-    #          "d’autres cartes (tirer), ou garder votre total actuel (rester). Si vos cartes"
-    #          " dépassent 21, vous perdez (on appelle cela 'sauter'). \n "
-#
-    #          "Gagner : Vous gagnez si votre total est égal à 21 ou le plus proche possible sans dépasser cette valeur. "
-    #          "Un Blackjack (21 avec deux cartes seulement, As + 10 ou figure) est la meilleure main possible.")  #\n permet le retour a la ligne
     current_dir = os.path.dirname(__file__)
     blabla_path = os.path.join(current_dir, "regle python.txt")
     with open(blabla_path, "r", encoding="utf-8") as file:
@@ -67,6 +52,8 @@ def on_open_fenetre2():
     cartes_tirees=[]
     boutons_choix_as = []
     resultat=None
+    nbcarte = 0
+    espcarte = 0 
 
     def choix_as():
         def choisir (val):
@@ -75,12 +62,12 @@ def on_open_fenetre2():
             compteur()#met à jour le score du joueur
             cacher_boutons_choix_as()
             #permet d'afficher si c'est perdu ou gagné selon le score
-        deal.config(state=tk.disabled)#désactive les boutons le temps du choix
-        stand.config(state=tk.disabled)
+        tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
+        rester.config(state=tk.DISABLED)
         bouton_1 = tk.Button(fenetre2, text = '1', command=lambda:choisir(1), bg = '#a6c9ff', fg = "black")#définitions des boutons
         bouton_11 = tk.Button(fenetre2, text = '11', command=lambda:choisir(11), bg = '#a6c9ff', fg = "black")
-        bouton_1.place(x=600, y=500) #placement des boutons
-        bouton_11.place(x=650, y=500)
+        bouton_1.place(x=600, y=100) #placement des boutons
+        bouton_11.place(x=650, y=100)
         boutons_choix_as.append(bouton_1) #créer une liste pour que les boutons disparaissent après
         boutons_choix_as.append(bouton_11)
     
@@ -141,7 +128,7 @@ def on_open_fenetre2():
             y_position+=30
 
     def distribution (): #distribuer les cartes
-        nonlocal y_position, score_joueur, valeur_as
+        nonlocal y_position, score_joueur, valeur_as, nbcarte, espcarte
         if cartes_photos: #vérifie qu'il rest des cartes dans le paquet
             carte_tiree = cartes_photos.pop() #prend la dernièere carte du paquet
             cartes_tirees.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
@@ -159,27 +146,47 @@ def on_open_fenetre2():
                 score_joueur += valeur #ajout valeur de la carte au score
                 joueur.config(text = f'Joueur({score_joueur})')
                 compteur() #est-ce que le joueur a gagné ou perdu ?
+
+            target_x, target_y = 100 + espcarte, 450
+            def move(speed = 20): 
+                x = carte_label.winfo_x()
+                y = carte_label.winfo_y()
+
+                dx = target_x - x
+                dy = target_y - y
+                distance = (dx**2 + dy**2)**0.5
+
+                if distance < speed:
+                    for i in range(nbcarte):
+                        carte_label.place(x = target_x, y = target_y) 
+                        x += 150
+                else:
+                    step_x = dx / distance * speed
+                    step_y = dy / distance * speed
+                    carte_label.place(x=x + step_x, y=y + step_y)
+                    carte_label.after(16, move)  
+
+            carte_label.after(50, move)
+            espcarte += 30
     
     def distribution_croupier():
-        nonlocal score_croupier
-        while score_croupier<17:
-            if cartes_photos:
-                carte_tiree=cartes_photos.pop()
-                cartes_tirees.append(carte_tiree)
-                path=os.path.join(current_dir, carte_tiree)
-                image=PhotoImage(file=path).subsample(4,4)
-                carte_label=tk.Label(fenetre2, image=image)
-                carte_label.image=image
-                carte_label.place(x=600, y=y_position)
-                cartes_labels.append(carte_label)
-                nom_carte=carte_tiree.split('_')[0]
-                valeur=get_valeur(carte_tiree)
-                
-                if nom_carte=="ace":    #prend la valeur la plus benefique pour le croupier
-                    valeur=11 if score_croupier+11<=21 else 1
-
-                score_croupier+=valeur
-                dealer.config(text=f"Croupier({score_croupier})")
+        nonlocal score_croupier, y_position_croupier
+        if cartes_photos:
+            carte_tiree=cartes_photos.pop()
+            cartes_tirees.append(carte_tiree)
+            path=os.path.join(current_dir, carte_tiree)
+            image=PhotoImage(file=path).subsample(4,4)
+            carte_label=tk.Label(fenetre2, image=image)
+            carte_label.image=image
+            carte_label.place(x=400, y=y_position_croupier)
+            cartes_labels.append(carte_label)
+            nom_carte=carte_tiree.split('_')[0]
+            valeur=get_valeur(carte_tiree)
+            
+            if nom_carte=="ace":    #prend la valeur la plus benefique pour le croupier ia
+                valeur=11 if score_croupier+11<=21 else 1
+        score_croupier+=valeur
+        dealer.config(text=f"Croupier({score_croupier})")
 
     resultat=tk.Label(fenetre2, fg='green', bg='#c9ffa6', font=("Arial", 20, "bold"))
     resultat.place(x=800, y=200)    #on peut pas la mettre direct dans les iteration car elle chanfe a chaque fois et donc ca bug
@@ -190,17 +197,17 @@ def on_open_fenetre2():
         if score_joueur==21 and len(cartes_tirees)==2:
             blabla1="Black Jack - Bravo vous avez gagné 🥳"
             resultat.config(text=blabla1)           #met a jour la variable resultat
+
+        elif (score_croupier==21 and len(cartes_tirees)==2):
+            blabla3="Bouh, vous avez perdu 🤣"
+            resultat.config(text=blabla3)
         
         elif (score_croupier<score_joueur and score_joueur==21) or score_croupier>21:
             blabla2="Bravo vous venez de remporter la partie"
-            resultat.config(text=blabla2)
-
-        elif score_croupier==21 and len(cartes_tirees)==2:
-            blabla3="Bouh, vous avez perdu 🤣"
-            resultat.config(text=blabla3)
-                              
-        elif (17<=score_croupier<=21 and score_joueur<score_croupier) or score_joueur>21:
-            blabla3="Bouh, vous avez perdu 🤣"
+            resultat.config(text=blabla2) 
+        
+        elif (score_croupier>score_joueur and score_croupier==21) or score_joueur>21:
+            blabla3="Bouh vous avez perdu 🤣"
             resultat.config(text=blabla3)
         
         elif (score_croupier==score_joueur and len(cartes_tirees)==2) or (score_joueur==21 and score_croupier==21):
@@ -214,6 +221,7 @@ def on_open_fenetre2():
 
     def deal ():
         distribution()
+        nbcarte += 1
 
     def stand():
         # Fonction pour rester
@@ -231,12 +239,6 @@ def on_open_fenetre2():
 
     joueur = tk.Label(fenetre2, text ="Joueur", bg = '#c9ffa6', fg = "black",font = ("16"))
     joueur.place(x=350,y=165)
-
-    #cmpt_d = tk.Label(fenetre2, text ="N", bg = '#c9ffa6', fg = "black",font = ("16"))
-    #cmpt_d.place(x=250,y=165)
-#
-    #cmpt_j = tk.Label(fenetre2, text ="N", bg = '#c9ffa6', fg = "black",font = ("16"))
-    #cmpt_j.place(x=450,y=165)
 
     def bouton_recommencer():
         nonlocal cartes_photos, cartes_labels, cartes_tirees, score_joueur, score_croupier, y_position, y_position_croupier
