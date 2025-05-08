@@ -32,8 +32,8 @@ def on_open_fenetre2():
     fenetre2.title("Black Jack JEU")
     fenetre2.geometry("1200x700")
     fenetre2.config(bg = '#c9ffa6')
-    pp = tk.Canvas(fenetre2, width = 1200, height = 300, bg = '#ffa6c9')
-    pp.place(x = 0, y = 400)
+    pp = tk.Canvas(fenetre2, width = 1200, height = 350, bg = '#ffa6c9')
+    pp.place(x = 0, y = 350)
 
     def melanger():# #mélanger les cartes
         shuffle(cartes_photos) 
@@ -43,7 +43,7 @@ def on_open_fenetre2():
 
     #Variables du jeu
     y_position=300
-    y_position_croupier=200
+    y_position_croupier=50
     overlap_offset=30
     score_joueur=0
     score_croupier=0
@@ -139,7 +139,7 @@ def on_open_fenetre2():
             image = PhotoImage(file=path).subsample(4,4)
             carte_label = tk.Label(fenetre2, image=image)
             carte_label.image = image
-            carte_label.place (x=600, y = y_position)
+            carte_label.place (x=20, y = y_position)
             cartes_labels.append(carte_label)    
             nom_carte = carte_tiree.split('_')[0]#nom de la carte avec sa vealeur associée
             valeur = get_valeur(carte_tiree)    
@@ -181,7 +181,7 @@ def on_open_fenetre2():
             image=PhotoImage(file=path).subsample(4,4)
             carte_label=tk.Label(fenetre2, image=image)
             carte_label.image=image
-            carte_label.place(x=400, y=y_position_croupier)
+            carte_label.place(x=20, y=y_position_croupier)
             cartes_labels.append(carte_label)
             nom_carte=carte_tiree.split('_')[0]
             valeur=get_valeur(carte_tiree)
@@ -235,14 +235,14 @@ def on_open_fenetre2():
         donner_2_cartes(playeur=True)
         donner_2_cartes(playeur=False)
         compteur()
-        cartes2.destroy()
+        cartes2.place_forget() #fait disparaitre le boutton ia
 
     #LABELS
-    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#c9ffa6', fg = "black",font = ("16"))
-    dealer.place(x=150,y=165)
+    dealer = tk.Label(fenetre2, text ="Croupier", bg = '#c9ffa6', fg = "black",font = ("Helvetica",25))
+    dealer.place(x=20)
 
-    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#c9ffa6', fg = "black",font = ("16"))
-    joueur.place(x=350,y=165)
+    joueur = tk.Label(fenetre2, text ="Joueur", bg = '#ffa6c9', fg = "black",font = ("Helvetica",25))
+    joueur.place(x=20,y=353)
 
     def bouton_recommencer():
         nonlocal cartes_photos, cartes_labels, cartes_tirees, score_joueur, score_croupier, y_position, y_position_croupier
@@ -255,23 +255,25 @@ def on_open_fenetre2():
         y_position = 300 #remet les cartes à la bonne position
         y_position_croupier = 200
         joueur.config(text="Joueur(0)")#les scores sont reécris
-        dealer.config(text="Croupier")
+        dealer.config(text="Croupier(0)")
         tirer.config(state=NORMAL)#récative les boutons
         rester.config(state=NORMAL)
+        cartes2.config(state=NORMAL)
+        cartes2.place(x=300, y=400)
         choix_as_disparus()#fait disparaitre les boutons 1 ou 11
         resultat.config(text="") #efface gagné ou perdu
 
     recommencer_bouton = tk.Button(fenetre2, text="Recommencer", bg="#ffa6c9", fg="black", command=bouton_recommencer)
-    recommencer_bouton.place(x=20, y=50) #création du bouton
+    recommencer_bouton.place(x=1100, y=35) #création du bouton
 
     #BOUTONS
-    tirer = tk.Button(fenetre2, text = " CARTE ! ", bg = '#a6c9ff', fg = 'black', command = deal)
+    tirer = tk.Button(fenetre2, text = " CARTE ! ", bg = '#a6c9ff', fg = 'black',command = deal)
     tirer.configure(height=3, width=10)
-    tirer.place(x=200,y=300)
+    tirer.place(x=550,y=330)
 
     rester = tk.Button(fenetre2, text = " RESTER ", bg = '#a6c9ff', fg = 'black', command= stand)
     rester.configure(height=3, width=10)
-    rester.place(x=300,y=300)
+    rester.place(x=610,y=330)
 
     cartes2= tk.Button(fenetre2, text = " Commencer ", bg = '#a6c9ff', fg = 'black', command= piocher2)
     cartes2.configure(height=3, width=10)
@@ -279,7 +281,7 @@ def on_open_fenetre2():
 
     bouton_accueil= tk.Button(fenetre2, text="Accueil", bg = "#ffa6c9", fg="black", command = accueil)
     bouton_accueil.configure(height=1, width=6)
-    bouton_accueil.place(x=20, y=20)
+    bouton_accueil.place(x=1100, y=0)
 
 
     #dimension cartes: 500 x 726
@@ -295,7 +297,7 @@ def on_open_fenetre2():
         iage=tk.Label(fenetre2, image=image)
         iage.image=image
         iage.place(x=600, y=y_position)
-        y_position+=overlap_offset
+        #y_position+=overlap_offset
 
     
 ##############################################################################################################################
