@@ -10,19 +10,19 @@ from random import shuffle, choice
 def on_open_fenetre():
     fentre_regle= tk.Toplevel()
     fentre_regle.title("Black Jack REGLE")
-    fentre_regle.config(bg="black")
+    fentre_regle.config(bg="Black")
     fentre_regle.geometry("650x800")
 
 #Label
-    current_dir = os.path.dirname(__file__)
-    blabla_path = os.path.join(current_dir, "regle python.txt")
-    with open(blabla_path, "r", encoding="utf-8") as file:
+    current_dir = os.path.dirname(__file__)   #recupere le dossier
+    blabla_path = os.path.join(current_dir, "regle python.txt")  #cree le chemin complet
+    with open(blabla_path, "r", encoding="utf-8") as file:   #ouvre  et lis le fichier en utf-8 
         blablacar=file.read()
-    rule=tk.Text(fentre_regle, wrap=tk.WORD,fg="green", bg="Black", font=("Arial",14), borderwidth=0, highlightthickness=0)
-    rule.insert(tk.END, blablacar)
-    rule.config(state=tk.DISABLED)
+    rule=tk.Text(fentre_regle, wrap=tk.WORD,fg="#469735", bg="Black", font=("Helvetica",14), borderwidth=0, highlightthickness=0) #texte revient a la ligne apres un mot (sans couper de mot ou quoi que ce soit), pas de bordure ni de contour de focus
+    rule.insert(tk.END, blablacar)  #insere le texte lu dans le widget Text
+    rule.config(state=tk.DISABLED)   #empeche la modif du texte
 
-    rule.pack()
+    rule.pack()    #affiche le widget Text dans la fenetre 
 
 #############################################################################################################################
 #FENETRE 2
@@ -95,7 +95,7 @@ def on_open_fenetre2():
         nom=carte_filename.split("_of_")[0]
         return cartes_valeur[nom]  
 
-    def donner_2_cartes(playeur):
+    def donner_2_cartes(playeur):  #la fonction sert a distribuer 2 cartes au joueur (palyeur=True) et au croupier (playeur=False)
         nonlocal y_position, y_position_croupier, score_joueur, score_croupier
         for i in range(2):
             if cartes_photos:
@@ -114,15 +114,15 @@ def on_open_fenetre2():
                     y_position_croupier+=30
                     
                 cartes_labels.append(carte_label)
-                nom_carte=carte_tiree.split('_')[0]
-                valeur=get_valeur(carte_tiree)
+                nom_carte=carte_tiree.split('_')[0]  #recupere le nom de la carte
+                valeur=get_valeur(carte_tiree)   #calcul valeur de la carte
 
                 if nom_carte=="ace":
                     if playeur:
                         choix_as()
                     else:
                         valeur=11 if score_croupier+11<=21 else 1
-                if playeur:
+                if playeur:     #cette iiteration c'est pour la mise a jour du score
                     score_joueur+=valeur
                     joueur.config(text=f"Joueur({score_joueur})")
                 else:
@@ -187,12 +187,13 @@ def on_open_fenetre2():
             valeur=get_valeur(carte_tiree)
             
             if nom_carte=="ace":    #prend la valeur la plus benefique pour le croupier ia
-                valeur=11 if score_croupier+11<=21 else 1
+                valeur=11 if score_croupier+11<=21 else 1  #si le score du croupier+11 est <21, on prend 11 comme valeur pour l'as, sinon c'est 1
         score_croupier+=valeur
-        dealer.config(text=f"Croupier({score_croupier})")
+        dealer.config(text=f"Croupier({score_croupier})")   #met a jour le texte affiche dans le label pour montrer le score actuel
+
 
     resultat=tk.Label(fenetre2, fg='green', bg='#c9ffa6', font=("Arial", 20, "bold"))
-    resultat.place(x=800, y=200)    #on peut pas la mettre direct dans les iteration car elle chanfe a chaque fois et donc ca bug
+    resultat.place(x=800, y=200)    #on peut pas la mettre direct dans les iteration car elle change a chaque fois et donc ca bug
 
     def compteur():   #verifie les scores et les mets a jour durant la partie
         nonlocal score_croupier, score_joueur, resultat
@@ -206,11 +207,11 @@ def on_open_fenetre2():
             resultat.config(text=blabla3)
         
         elif (score_croupier<score_joueur and score_joueur==21) or score_croupier>21:
-            blabla2="Bravo vous venez de remporter la partie"
+            blabla2="Bravo, vous venez de remporter la partie"
             resultat.config(text=blabla2) 
         
         elif (score_croupier>score_joueur and score_croupier==21) or score_joueur>21:
-            blabla3="Bouh vous avez perdu 🤣"
+            blabla3="Blast - Bouh vous avez perdu 🤣"
             resultat.config(text=blabla3)
         
         elif (score_croupier==score_joueur and len(cartes_tirees)==2) or (score_joueur==21 and score_croupier==21):
@@ -232,7 +233,7 @@ def on_open_fenetre2():
         compteur()
 
     def piocher2():
-        donner_2_cartes(playeur=True)
+        donner_2_cartes(playeur=True)  #donne 2cartes au joueur et au croupier
         donner_2_cartes(playeur=False)
         compteur()
         cartes2.place_forget() #fait disparaitre le boutton ia
@@ -283,21 +284,21 @@ def on_open_fenetre2():
     bouton_accueil.configure(height=1, width=6)
     bouton_accueil.place(x=1100, y=0)
 
-
+#ca a servi au debut de la creation du jeu et on s'est appuyé dessu ducoup pour certaines fonctions
     #dimension cartes: 500 x 726
-    current_dir = os.path.dirname(__file__)
+ #   current_dir = os.path.dirname(__file__)
 
    # image_refs=[]
-    y_position = 300
-    overlap_offset=1
-    for i in range (len(cartes_photos)):
-        path = os.path.join(current_dir, cartes_photos[i]) 
-        image=PhotoImage(file=path)
-        image=image.subsample(4,4)
-        iage=tk.Label(fenetre2, image=image)
-        iage.image=image
-        iage.place(x=600, y=y_position)
-        #y_position+=overlap_offset
+#    y_position = 300
+#    overlap_offset=1
+#    for i in range (len(cartes_photos)):
+#        path = os.path.join(current_dir, cartes_photos[i]) 
+#        image=PhotoImage(file=path)
+#        image=image.subsample(4,4)
+#        iage=tk.Label(fenetre2, image=image)
+#        iage.image=image
+#        iage.place(x=600, y=y_position)
+#        #y_position+=overlap_offset
 
     
 ##############################################################################################################################

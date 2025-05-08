@@ -1,9 +1,26 @@
-But du jeu : 
+•Règle du Blackjack
 
-Atteindre un total de points le plus proche de 21 sans dépasser ce nombre.
+▫But du jeu : 
+▪Atteindre un total de points de 21 points sans dépasser ce nombre.
              
-Valeurs des cartes : les cartes de 2 à 10 valent leur valeur. Les figures (Roi, Dame, Valet) valent 10 points. L'As vaut 1 ou 11 points (selon ce qui vous avantage).
+▫Valeurs des cartes: 
+▪Les cartes de 2 à 10 valent leur valeur. 
+▪Les figures (Roi,Dame, Valet) valent 10 points. 
+▪L'As vaut 1 ou 11 points, selon ce qui vous avantage.
              
-Déroulement :Chaque joueur reçoit 2 cartes face visible, et le croupier a une carte visible et une face cachée. Vous pouvez demander d’autres cartes (tirer), ou garder votre total actuel (rester). Si vos cartes dépassent 21, vous perdez (on appelle cela 'sauter').
+▫Déroulement: 
+▪Le joueur et le croupier reçoivent chacun deux cartes, visible. 
+▪Vous pouvez demander d’autres cartes (piocher), ou conserver votre total actuel (rester).
+▪Lorsque vous restez, c'est le croupier qui pioche une carte.
              
-Gagner : Vous gagnez si votre total est égal à 21 ou le plus proche possible sans dépasser cette valeur. Un Blackjack (21 avec deux cartes seulement, As + 10 ou figure) est la meilleure main possible.
+▫Gagner: 
+▪Vous gagnez si votre total est égal à 21 ou faite un Blackjack. 
+▪Vous gagnez si la main totale du croupier dépasse 21 points.
+
+▫Perdre: 
+▪Vous perdez si votre total dépasse 21 points (Bust).
+▪Vous perdez si le croupier obtient un Blackjack.
+
+▫Infos supplémentaires: 
+▪Un Blackjack est la meilleure main possible et se compose d'un total de 21 points avec deux cartes seulement, As + 10 ou figure.
+▪Un Bust (anciennement "Sauter) est lorsque le total de votre main dépasse 21, ce qui entraine une défaite immédiate.
