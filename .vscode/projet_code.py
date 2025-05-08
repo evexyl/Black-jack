@@ -64,7 +64,8 @@ def on_open_fenetre2():
     cartes_tirees=[]
     boutons_choix_as = []
     resultat=None
-
+    nbcarte = 0
+    
     def choix_as():
         def choisir (val):
             nonlocal valeur_as
