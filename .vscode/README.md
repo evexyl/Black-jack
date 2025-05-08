@@ -6,5 +6,5 @@ Informations: -Jeu sans mise
               -Apolline:
               -Flavie:
               -Mariem:
-Problèmes:-Au niveau des commits, les messages ne sont pas clairs
-          -
+Défaults:-Au niveau des commits, les messages ne sont pas clairs
+          -Ca aurait éte plus sympa si on pouvait choisir qu'une seule fois au début si l'as vaut 11 ou 1

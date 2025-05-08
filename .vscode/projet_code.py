@@ -50,24 +50,78 @@ def on_open_fenetre2():
     pp = tk.Canvas(fenetre2, width = 1200, height = 300, bg = '#ffa6c9')
     pp.place(x = 0, y = 400)
 
-   
 
-    def stand():
-        # Fonction pour rester
-        pass
+    #Variables du jeu
+    y_position=300
+    y_position_croupier=200
+    overlap_offset=30
+    score_joueur=0
+    score_croupier=0
+    as_valeur=None
+    cartes_labels=[]
+    cartes_tirees=[]
+    resultat=None
+    
+     #CARTES + leurs labels (sauvez moi) 
+    cartes_photos = ["ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
+    "ace_of_diamonds.png", "two_of_diamonds.png", "three_of_diamonds.png", "four_of_diamonds.png", "five_of_diamonds.png", "six_of_diamonds.png", "seven_of_diamonds.png", "eight_of_diamonds.png", "nine_of_diamonds.png", "ten_of_diamonds.png", "jack_of_diamonds.png", "queen_of_diamonds.png", "king_of_diamonds.png",
+    "ace_of_hearts.png", "two_of_hearts.png", "three_of_hearts.png", "four_of_hearts.png", "five_of_hearts.png", "six_of_hearts.png", "seven_of_hearts.png", "eight_of_hearts.png", "nine_of_hearts.png", "ten_of_hearts.png", "jack_of_hearts.png", "queen_of_hearts.png", "king_of_hearts.png",
+    "ace_of_spades.png", "two_of_spades.png", "three_of_spades.png", "four_of_spades.png", "five_of_spades.png", "six_of_spades.png", "seven_of_spades.png", "eight_of_spades.png", "nine_of_spades.png", "ten_of_spades.png", "jack_of_spades.png", "queen_of_spades.png", "king_of_spades.png"]
+
+    cartes_valeur = {"ace": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, 
+                     "eight": 8, "nine": 9, "ten": 10, "jack": 10, "queen": 10, "king": 10}
+    
+    def get_valeur(carte_filename):
+        nom=carte_filename.split("_of_")[0]
+        return cartes_valeur[nom]
 
     def melanger():# #mélanger les cartes
         shuffle(cartes_photos)    
 
 
+    def donner_2_cartes(joueur):
+        nonlocal y_position, y_position_croupier, score_joueur,score_croupier
+        for i in range(2):
+            if cartes_photos:
+                carte_tiree=cartes_photos.pop()
+                cartes_tirees.append(carte_tiree)
+                path=os.path.join(current_dir, carte_tiree)
+                image=PhotoImage(file=path).subsample(4,4)
+                carte_label=tk.Label(fenetre2, image=image)
+                carte_label.image=image
+                
+                if joueur:
+                    carte_label.place(x=600, y=y_position)
+                    y_position+=30
+                else:
+                    carte_label.place(x=400, y=y_position_croupier)
+                    y_position_croupier+=30
+                    
+                cartes_labels.append(carte_label)
+                nom_carte=carte_tiree.split('_')[0]
+                valeur=get_valeur(carte_tiree)
+
+                if nom_carte=="ace":
+                    if joueur:
+                        afficher_boutons_choix_as()
+                    else:
+                        valeur=11 if score_croupier+11<=21 else 1
+                if joueur:
+                    score_joueur+=valeur
+                    joueur.config(text=f"Joueur({score_joueur})")
+                else:
+                    score_croupier+=valeur
+                    dealer.config(text=f"Joueur({score_joueur})")
+            y_position+=30
+
     def distribution (): #distribuer les cartes
         nonlocal y_position, score_joueur, as_valeur
         if cartes_photos: #vérifie qu'il rest des cartes dans le paquet
             carte_tiree = cartes_photos.pop() #prend la dernièere carte du paquet
-            carte_tiree.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
+            cartes_tirees.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
             path = os.path.join(current_dir, carte_tiree) #affichage des cartes
             image = PhotoImage(file=path).subsample(4,4)
-            carte_label = tk.label(fenetre2, image=image)
+            carte_label = tk.Label(fenetre2, image=image)
             carte_label.image = image
             carte_label.place (x=600, y = y_position)
             cartes_labels.append(carte_label)    
@@ -78,38 +132,71 @@ def on_open_fenetre2():
             else:
                 score_joueur += valeur #ajout valeur de la carte au score
                 joueur.config(text = f'Joueur({score_joueur})')
-                verifier_score() #est-ce que le joueur a gagné ou perdu ?
+                compteur() #est-ce que le joueur a gagné ou perdu ?
+    
+    def distribution_croupier():
+        nonlocal score_croupier
+        while score_croupier<17:
+            if cartes_photos:
+                carte_tiree=cartes_photos.pop()
+                cartes_tirees.append(carte_tiree)
+                path=os.path.join(current_dir, carte_tiree)
+                image=PhotoImage(file=path).subsample(4,4)
+                carte_label=tk.Label(fenetre2, image=image)
+                carte_label.image=image
+                carte_label.place(x=600, y=y_position)
+                cartes_labels.append(carte_label)
+                nom_carte=carte_tiree.split('_')[0]
+                valeur=get_valeur(carte_tiree)
+                
+                if nom_carte=="ace":    #prend la valeur la plus benefique pour le croupier
+                    valeur=11 if score_croupier+11<=21 else 1
+
+                score_croupier+=valeur
+                dealer.config(text=f"Croupier({score_croupier})")
+
+    resultat=tk.Label(fenetre2, fg='green', bg='#c9ffa6', font=("Arial", 20, "bold"))
+    resultat.place(x=800, y=200)    #on peut pas la mettre direct dans les iteration car elle chanfe a chaque fois et donc ca bug
+
+    def compteur():   #verifie les scores et les mets a jour durant la partie
+        nonlocal score_croupier, score_joueur, resultat
+
+        if score_joueur==21 and len(cartes_tirees)==2:
+            blabla1="Black Jack - Bravo vous avez gagné 🥳"
+            resultat.config(text=blabla1)           #met a jour la variable resultat
+        
+        elif (score_croupier<score_joueur and score_joueur==21) or score_croupier>21:
+            blabla2="Bravo vous venez de remporter la partie"
+            resultat.config(text=blabla2)
+
+        elif score_croupier==21 and len(cartes_tirees)==2:
+            blabla3="Bouh, vous avez perdu 🤣"
+            resultat.config(text=blabla3)
+                              
+        elif (17<=score_croupier<=21 and score_joueur<score_croupier) or score_joueur>21:
+            blabla3="Bouh, vous avez perdu 🤣"
+            resultat.config(text=blabla3)
+        
+        elif (score_croupier==score_joueur and len(cartes_tirees)==2) or (score_joueur==21 and score_croupier==21):
+            blabla4="Egalité, c'est bien joué 👍"
+            resultat.config(text=blabla4)
+
+        else:
+            resultat.config(text="")
+
     def deal ():
         distribution()
 
+    def stand():
+        # Fonction pour rester
+        distribution_croupier()
+        compteur()
 
-    def compteur():
-        global cmpt
-        global joueur_score
-        global croupier_score
+    def piocher2():
+        donner_2_cartes(joueur=True)
+        donner_2_cartes(joueur=False)
+        compteur()
 
-        carte_joueur 
-
-        joueur_score+=carte_joueur
-        croupier_score+=carte_croupier
-
-        if joueur_score<=21 and joueur_score>croupier_score:
-            return "Joueur vainqueur"
-        elif joueur_score==croupier_score:
-            return "Egalité"
-        elif croupier_score<=21 and joueur_score<croupier_score:
-            return "Joueur loseur"
-
-
-
-    
-
-
-
-
-
-    
-    
     #LABELS
     dealer = tk.Label(fenetre2, text ="Croupier", bg = '#c9ffa6', fg = "black",font = ("16"))
     dealer.place(x=150,y=165)
@@ -132,25 +219,9 @@ def on_open_fenetre2():
     stand.configure(height=3, width=10)
     stand.place(x=300,y=300)
 
-    
-    
-
-    
-    cartes = {"ace_of_clubs": 1, "two_of_clubs": 2, "three_of_clubs": 3, "four_of_clubs": 4, "five_of_clubs": 5, "six_of_clubs": 6, "seven_of_clubs": 7, "eight_of_clubs": 8, "nine_of_clubs": 9, "ten_of_clubs": 10, "jack_of_clubs": 10, "queen_of_clubs": 10, "king_of_clubs": 10,
-                "ace_of_diamonds": 1, "two_of_diamonds": 2, "three_of_diamonds": 3, "four_of_diamonds": 4, "five_of_diamonds": 5, "six_of_diamonds": 6, "seven_of_diamonds": 7, "eight_of_diamonds": 8, "nine_of_diamonds": 9, "ten_of_diamonds": 10, "jack_of_diamonds":10, "queen_of_diamonds": 10, "king_of_diamonds": 10,
-                 "ace_of_hearts": 1, "two_of_heart": 2, "three_of_hearts": 3, "four_of_hearts": 4, "five_of_hearts": 5, "six_of_hearts": 6, "seven_of_hearts": 7, "eight_of_hearts": 8, "nine_of_hearts": 9, "ten_of_hearts": 10, "jack_of_hearts": 10, "queen_of_hearts": 10, "king_of_hearts": 10,
-                 "ace_of_spades": 1, "two_of_spades": 2, "three_of_spades": 3, "four_of_spades": 4, "five_of_spades": 5, "six_of_spades": 6, "seven_of_spades": 7, "eight_of_spades": 8, "nine_of_spades": 9, "ten_of_spades": 10, "jack_of_spades": 10, "queen_of_spades": 10, "king_of_spades": 10}
-   
-   # Générer un dictionnaire associant les noms des cartes à leurs fichiers image
-    cartes_def= {carte.replace(".png", ""): carte for carte in cartes_photos}
-
-    #CARTES + leurs labels (sauvez moi) 
-    cartes_photos = ["ace_of_clubs.png", "two_of_clubs.png", "three_of_clubs.png", "four_of_clubs.png", "five_of_clubs.png", "six_of_clubs.png", "seven_of_clubs.png", "eight_of_clubs.png", "nine_of_clubs.png", "ten_of_clubs.png", "jack_of_clubs.png", "queen_of_clubs.png", "king_of_clubs.png",
-    "ace_of_diamonds.png", "two_of_diamonds.png", "three_of_diamonds.png", "four_of_diamonds.png", "five_of_diamonds.png", "six_of_diamonds.png", "seven_of_diamonds.png", "eight_of_diamonds.png", "nine_of_diamonds.png", "ten_of_diamonds.png", "jack_of_diamonds.png", "queen_of_diamonds.png", "king_of_diamonds.png",
-    "ace_of_hearts.png", "two_of_hearts.png", "three_of_hearts.png", "four_of_hearts.png", "five_of_hearts.png", "six_of_hearts.png", "seven_of_hearts.png", "eight_of_hearts.png", "nine_of_hearts.png", "ten_of_hearts.png", "jack_of_hearts.png", "queen_of_hearts.png", "king_of_hearts.png",
-    "ace_of_spades.png", "two_of_spades.png", "three_of_spades.png", "four_of_spades.png", "five_of_spades.png", "six_of_spades.png", "seven_of_spades.png", "eight_of_spades.png", "nine_of_spades.png", "ten_of_spades.png", "jack_of_spades.png", "queen_of_spades.png", "king_of_spades.png"]
-
-    
+    cartes2= tk.Button(fenetre2, text = " 2 cartes ", bg = '#a6c9ff', fg = 'black', command= piocher2)
+    cartes2.configure(height=3, width=10)
+    cartes2.place(x=300,y=400)
 
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
@@ -159,49 +230,13 @@ def on_open_fenetre2():
     y_position = 300
     overlap_offset=1
     for i in range (len(cartes_photos)):
-        path = os.path.join(current_dir, cartes_photos[i])
-        #nom = cartes_photos[i]   
-        #base_name = nom.replace(".png", "")      
-        #mot = PhotoImage(file = path).subsample(4, 4)
-        ##mot = mot.subsample(4,4) 
-        ##nom = mot + "s"
-        ##image_refs.append(mot)
-        #carte = tk.Label(fenetre2, image = mot)
-        #carte.image = mot
-        #cartes_photos[base_name] = carte  
+        path = os.path.join(current_dir, cartes_photos[i]) 
         image=PhotoImage(file=path)
         image=image.subsample(4,4)
         iage=tk.Label(fenetre2, image=image)
         iage.image=image
         iage.place(x=600, y=y_position)
         y_position+=overlap_offset
-         #carte.place(x=600,y=300) 
-
-  
-    # Position the cards dynamically (13 per row)
-   # x_position = 50 + (i % 13) * 50  # 13 cards per row
-    #y_position = 50 + (i // 13) * 100  # Move to next row after 13 cards
-    #label.place(x=x_position, y=y_position)
-
-    #clubs
-    #image_path = os.path.join(current_dir, "ace_of_clubs.png")
-    #ace_of_clubs = image_path.resize((125, 182))
-    #ac = tk.PhotoImage(file = image_path)
-    ##ace_of_clubs = tk.resizeImage(ac, 125, 182)
-    #ace_of_clubs_l = tk.Label(fenetre2, image = ac)
-    #ace_of_clubs_l.place(x=400,y=200)
-    #
-    ##diamonds
-    #diamant_path=os.path.join(current_dir, "ace_of_diamonds.png")
-    #diam= PhotoImage(file=diamant_path)
-    #diam=diam.subsample(4,4)
-    #diama=tk.Label(fenetre2,image=diam)
-    #diama.image=diam
-    #diama.place(x=600,y=300)
-    
-    
-    #heart
-    #spades
 
     
 ##############################################################################################################################
