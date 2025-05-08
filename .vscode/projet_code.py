@@ -61,6 +61,7 @@ def on_open_fenetre2():
             #permet d'afficher si c'est perdu ou gagné selon le score
         tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
         rester.config(state=tk.DISABLED)
+        cartes2.config(state=tk.DISABLED)
         bouton_1 = tk.Button(fenetre2, text = '1', command=lambda:choisir(1), bg = '#a6c9ff', fg = "black")#définitions des boutons
         bouton_11 = tk.Button(fenetre2, text = '11', command=lambda:choisir(11), bg = '#a6c9ff', fg = "black")
         bouton_1.place(x=600, y=100) #placement des boutons
@@ -86,8 +87,6 @@ def on_open_fenetre2():
     def get_valeur(carte_filename):
         nom=carte_filename.split("_of_")[0]
         return cartes_valeur[nom]  
-
-
 
     def donner_2_cartes(playeur):
         nonlocal y_position, y_position_croupier, score_joueur, score_croupier
@@ -227,6 +226,7 @@ def on_open_fenetre2():
         donner_2_cartes(playeur=True)
         donner_2_cartes(playeur=False)
         compteur()
+        cartes2.destroy()
 
     #LABELS
     dealer = tk.Label(fenetre2, text ="Croupier", bg = '#c9ffa6', fg = "black",font = ("16"))
@@ -244,7 +244,7 @@ def on_open_fenetre2():
     rester.configure(height=3, width=10)
     rester.place(x=300,y=300)
 
-    cartes2= tk.Button(fenetre2, text = " 2 cartes ", bg = '#a6c9ff', fg = 'black', command= piocher2)
+    cartes2= tk.Button(fenetre2, text = " Commencer ", bg = '#a6c9ff', fg = 'black', command= piocher2)
     cartes2.configure(height=3, width=10)
     cartes2.place(x=300,y=400)
 
