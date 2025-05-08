@@ -53,6 +53,9 @@ def on_open_fenetre2():
     def melanger():# #mélanger les cartes
         shuffle(cartes_photos) 
 
+    def accueil():
+        fenetre2.destroy()
+
     #Variables du jeu
     y_position=300
     y_position_croupier=200
@@ -81,7 +84,7 @@ def on_open_fenetre2():
         boutons_choix_as.append(bouton_1) #créer une liste pour que les boutons disparaissent après
         boutons_choix_as.append(bouton_11)
     
-    def cacher_boutons_choix_as():#disparition des boutons
+    def choix_as_disparus():#disparition des boutons
         for boutons in boutons_choix_as:
             boutons.destroy()
     
@@ -207,6 +210,8 @@ def on_open_fenetre2():
         else:
             resultat.config(text="")
 
+    
+
     def deal ():
         distribution()
 
@@ -233,6 +238,26 @@ def on_open_fenetre2():
     #cmpt_j = tk.Label(fenetre2, text ="N", bg = '#c9ffa6', fg = "black",font = ("16"))
     #cmpt_j.place(x=450,y=165)
 
+    def bouton_recommencer():
+        nonlocal cartes_photos, cartes_labels, cartes_tirees, score_joueur, score_croupier, y_position, y_position_croupier
+        for label in cartes_labels:
+            label.destroy()   #enleve les cartes piochées 
+        cartes_tirees.clear() #vide la liste des cartes déjà piochées (mémoire)
+        melanger()  #remélage les cartes
+        score_joueur = 0 #remet les scores à 0
+        score_croupier = 0
+        y_position = 300 #remet les cartes à la bonne position
+        y_position_croupier = 200
+        joueur.config(text="Joueur(0)")#les scores sont reécris
+        dealer.config(text="Croupier")
+        tirer.config(state=NORMAL)#récative les boutons
+        rester.config(state=NORMAL)
+        choix_as_disparus()#fait disparaitre les boutons 1 ou 11
+        resultat.config(text="") #efface gagné ou perdu
+
+    recommencer_bouton = tk.Button(fenetre2, text="Recommencer", bg="#ffa6c9", fg="black", command=bouton_recommencer)
+    recommencer_bouton.place(x=20, y=50) #création du bouton
+
     #BOUTONS
     tirer = tk.Button(fenetre2, text = " CARTE ! ", bg = '#a6c9ff', fg = 'black', command = deal)
     tirer.configure(height=3, width=10)
@@ -245,6 +270,11 @@ def on_open_fenetre2():
     cartes2= tk.Button(fenetre2, text = " 2 cartes ", bg = '#a6c9ff', fg = 'black', command= piocher2)
     cartes2.configure(height=3, width=10)
     cartes2.place(x=300,y=400)
+
+    bouton_accueil= tk.Button(fenetre2, text="Accueil", bg = "#ffa6c9", fg="black", command = accueil)
+    bouton_accueil.configure(height=1, width=6)
+    bouton_accueil.place(x=20, y=20)
+
 
     #dimension cartes: 500 x 726
     current_dir = os.path.dirname(__file__)
