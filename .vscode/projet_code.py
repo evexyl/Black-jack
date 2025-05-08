@@ -65,7 +65,8 @@ def on_open_fenetre2():
     boutons_choix_as = []
     resultat=None
     nbcarte = 0
-    
+    espcarte = 0 
+
     def choix_as():
         def choisir (val):
             nonlocal valeur_as
@@ -139,7 +140,7 @@ def on_open_fenetre2():
             y_position+=30
 
     def distribution (): #distribuer les cartes
-        nonlocal y_position, score_joueur, valeur_as, nbcarte
+        nonlocal y_position, score_joueur, valeur_as, nbcarte, espcarte
         if cartes_photos: #vérifie qu'il rest des cartes dans le paquet
             carte_tiree = cartes_photos.pop() #prend la dernièere carte du paquet
             cartes_tirees.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
@@ -158,7 +159,7 @@ def on_open_fenetre2():
                 joueur.config(text = f'Joueur({score_joueur})')
                 compteur() #est-ce que le joueur a gagné ou perdu ?
 
-            target_x, target_y = 100, 450
+            target_x, target_y = 100 + espcarte, 450
             def move(speed = 20): 
                 x = carte_label.winfo_x()
                 y = carte_label.winfo_y()
@@ -178,6 +179,7 @@ def on_open_fenetre2():
                     carte_label.after(16, move)  
 
             carte_label.after(50, move)
+            espcarte += 30
     
     def distribution_croupier():
         nonlocal score_croupier

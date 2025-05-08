@@ -67,9 +67,10 @@ def on_open_fenetre2():
     score_joueur = 0
     boutons_choix_as = []
     nbcarte = 0
+    espcarte = 0
 
     def distribution():
-        nonlocal y_position, score_joueur, boutons_choix_as, nbcarte
+        nonlocal y_position, score_joueur, boutons_choix_as, nbcarte, espcarte
 
         if cartes_photos:
             carte_tiree = cartes_photos.pop()
@@ -89,7 +90,7 @@ def on_open_fenetre2():
                 score_joueur += valeur
                 joueur.config(text = f"Joueur ({score_joueur})")
 
-            target_x, target_y = 100, 450
+            target_x, target_y = 100 + espcarte, 450
             def move(speed = 20): #ne marche pas encore dont push
                 x = carte_label.winfo_x()
                 y = carte_label.winfo_y()
@@ -109,6 +110,7 @@ def on_open_fenetre2():
                     carte_label.after(16, move)  
 
             carte_label.after(50, move)
+            espcarte += 40
 
     def afficher_boutons_choix_as():
         nonlocal boutons_choix_as, score_joueur
