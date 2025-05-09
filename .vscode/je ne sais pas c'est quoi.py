@@ -55,9 +55,12 @@ def on_open_fenetre2():
     cartes_tirees=[]
     boutons_choix_as = []
     resultat=None
+
     #def move
-    nbcarte = 0
-    espcarte = 0 
+    nbcarte_j = 0
+    espcarte_j = 0 
+    nbcarte_c = 0
+    espcarte_c = 0
 
     def choix_as():
         def choisir (val):
@@ -114,7 +117,7 @@ def on_open_fenetre2():
                     carte_label.place(x= x_position, y=450)
                     x_position += 30
                 else:
-                    carte_label.place(x= x_position_croupier, y=150)
+                    carte_label.place(x= x_position_croupier, y=100)
                     x_position_croupier += 30
                     
                 cartes_labels.append(carte_label)
@@ -134,7 +137,7 @@ def on_open_fenetre2():
                     dealer.config(text=f"Croupier({score_croupier})")
 
     def distribution (): #distribuer les cartes
-        nonlocal y_position, score_joueur, valeur_as, nbcarte, espcarte
+        nonlocal y_position, score_joueur, valeur_as, nbcarte_j, espcarte_j
         if cartes_photos: #vérifie qu'il rest des cartes dans le paquet
             carte_tiree = cartes_photos.pop() #prend la dernièere carte du paquet
             cartes_tirees.append(carte_tiree) #rajoute à la liste des cartes tirées (mémoire)
@@ -142,7 +145,7 @@ def on_open_fenetre2():
             image = PhotoImage(file=path).subsample(4,4)
             carte_label = tk.Label(fenetre2, image=image)
             carte_label.image = image
-            carte_label.place (x=20, y = y_position)
+            carte_label.place(x=750, y = 259)
             cartes_labels.append(carte_label)    
             nom_carte = carte_tiree.split('_')[0]#nom de la carte avec sa vealeur associée
             valeur = get_valeur(carte_tiree)    
@@ -153,8 +156,8 @@ def on_open_fenetre2():
                 joueur.config(text = f'Joueur({score_joueur})')
                 compteur() #est-ce que le joueur a gagné ou perdu ?
 
-            target_x, target_y = 160 + espcarte, 450
-            def move(speed = 20): 
+            target_x, target_y = 160 + espcarte_j, 450
+            def move_j(speed = 20): 
                 x = carte_label.winfo_x()
                 y = carte_label.winfo_y()
 
@@ -163,20 +166,20 @@ def on_open_fenetre2():
                 distance = (dx**2 + dy**2)**0.5
 
                 if distance < speed:
-                    for i in range(nbcarte):
+                    for i in range(nbcarte_j):
                         carte_label.place(x = target_x, y = target_y) 
                         x += 150
                 else:
                     step_x = dx / distance * speed
                     step_y = dy / distance * speed
                     carte_label.place(x=x + step_x, y=y + step_y)
-                    carte_label.after(16, move)  
+                    carte_label.after(16, move_j)  
 
-            carte_label.after(50, move)
-            espcarte += 30
+            carte_label.after(50, move_j)
+           
     
     def distribution_croupier():
-        nonlocal score_croupier, y_position_croupier
+        nonlocal score_croupier, y_position_croupier, espcarte_c
         if cartes_photos:
             carte_tiree=cartes_photos.pop()
             cartes_tirees.append(carte_tiree)
@@ -184,7 +187,7 @@ def on_open_fenetre2():
             image=PhotoImage(file=path).subsample(4,4)
             carte_label=tk.Label(fenetre2, image=image)
             carte_label.image=image
-            carte_label.place(x=20, y=y_position_croupier)
+            carte_label.place(x=750, y = 259)
             cartes_labels.append(carte_label)
             nom_carte=carte_tiree.split('_')[0]
             valeur=get_valeur(carte_tiree)
@@ -194,15 +197,36 @@ def on_open_fenetre2():
         score_croupier+=valeur
         dealer.config(text=f"Croupier({score_croupier})")
 
+        target_x, target_y = 160 + espcarte_c, 100
+        def move_c(speed = 20): 
+            x = carte_label.winfo_x()
+            y = carte_label.winfo_y()
+
+            dx = target_x - x
+            dy = target_y - y
+            distance = (dx**2 + dy**2)**0.5
+
+            if distance < speed:
+                for i in range(nbcarte_c):
+                    carte_label.place(x = target_x, y = target_y) 
+                    x += 150
+            else:
+                step_x = dx / distance * speed
+                step_y = dy / distance * speed
+                carte_label.place(x=x + step_x, y=y + step_y)
+                carte_label.after(16, move_c)  
+
+        carte_label.after(50, move_c)
+
     resultat=tk.Label(fenetre2, fg='green', bg='#13563B', font=("Arial", 20, "bold"))
-    resultat.place(x=800, y=200)    #on peut pas la mettre direct dans les iteration car elle change a chaque fois et donc ca bug
+    resultat.place(x=400, y=200)    #on peut pas la mettre direct dans les iteration car elle change a chaque fois et donc ca bug
 
     def compteur():   #verifie les scores et les mets a jour durant la partie
         nonlocal score_croupier, score_joueur, resultat
 
         if score_joueur==21 and len(cartes_tirees)==2:
             blabla1="Black Jack - Bravo vous avez gagné 🥳"
-            resultat.config(text=blabla1)           #met a jour la variable resultat
+            resultat.config(text=blabla1)           #met a jour le label resultat
 
         elif (score_croupier==21 and len(cartes_tirees)==2):
             blabla3="Bouh, vous avez perdu 🤣"
@@ -224,14 +248,17 @@ def on_open_fenetre2():
             resultat.config(text="")
 
     def deal ():
-        nonlocal nbcarte
+        nonlocal nbcarte_j, espcarte_j
         distribution()
-        nbcarte += 1
+        nbcarte_j += 1
+        espcarte_j += 30
 
-    def stand():
-        # Fonction pour rester
+    def stand():    # Fonction pour rester
+        nonlocal nbcarte_c, espcarte_c
         distribution_croupier()
         compteur()
+        nbcarte_c += 1
+        espcarte_c += 30
 
     def piocher2():
         donner_2_cartes(playeur=True)
