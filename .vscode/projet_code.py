@@ -289,7 +289,7 @@ def on_open_fenetre2():
     joueur.place(x=20,y=353)
 
     def bouton_recommencer():
-        nonlocal cartes_photos, cartes_labels, cartes_tirees, score_joueur, score_croupier, y_position, y_position_croupier
+        nonlocal cartes_photos, cartes_labels, cartes_tirees, score_joueur, score_croupier, y_position, y_position_croupier, x_position, x_position_croupier
         for label in cartes_labels:
             label.destroy()   #enleve les cartes piochées 
         cartes_tirees.clear() #vide la liste des cartes déjà piochées (mémoire)
@@ -298,6 +298,8 @@ def on_open_fenetre2():
         score_croupier = 0
         y_position = 300 #remet les cartes à la bonne position
         y_position_croupier = 200
+        x_position = 100
+        x_position_croupier = 100
         joueur.config(text="Joueur(0)")#les scores sont reécris
         dealer.config(text="Croupier(0)")
         tirer.config(state=NORMAL)#récative les boutons
