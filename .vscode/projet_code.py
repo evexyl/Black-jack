@@ -159,7 +159,7 @@ def on_open_fenetre2():
                 compteur() #est-ce que le joueur a gagné ou perdu ?
 
             target_x, target_y = 160 + espcarte_j, 450
-            def move_j(speed = 20): 
+            def move_j(speed = 20):    #mix entre IA et inspiration de video regarde
                 x = carte_label.winfo_x()
                 y = carte_label.winfo_y()
 
@@ -228,23 +228,33 @@ def on_open_fenetre2():
 
         if score_joueur==21 and len(cartes_tirees)==2:
             blabla1="Black Jack - Bravo vous avez gagné 🥳"
-            resultat.config(text=blabla1)           #met a jour la variable resultat
+            resultat.config(text=blabla1)   #met a jour la variable resultat
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED)        
 
         elif (score_croupier==21 and len(cartes_tirees)==2):
             blabla3="Bouh, vous avez perdu 🤣"
             resultat.config(text=blabla3)
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED)
         
         elif (score_croupier<score_joueur and score_joueur==21) or score_croupier>21:
             blabla2="Bravo, vous venez de remporter la partie"
-            resultat.config(text=blabla2) 
+            resultat.config(text=blabla2)
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED) 
         
         elif (score_croupier>score_joueur and score_croupier==21) or score_joueur>21:
             blabla3="Blast - Bouh vous avez perdu 🤣"
             resultat.config(text=blabla3)
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED)
         
         elif (score_croupier==score_joueur and len(cartes_tirees)==2) or (score_joueur==21 and score_croupier==21):
             blabla4="Egalité, c'est bien joué 👍"
             resultat.config(text=blabla4)
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED)
 
         else:
             resultat.config(text="")
@@ -263,6 +273,7 @@ def on_open_fenetre2():
         compteur()
         nbcarte_c += 1
         espcarte_c += 30
+        tirer.config(state=tk.DISABLED)
 
     def piocher2():
         donner_2_cartes(playeur=True)  #donne 2cartes au joueur et au croupier
@@ -292,7 +303,7 @@ def on_open_fenetre2():
         tirer.config(state=NORMAL)#récative les boutons
         rester.config(state=NORMAL)
         cartes2.config(state=NORMAL)
-        cartes2.place(x=300, y=400)
+        cartes2.place(x=470, y=325)
         choix_as_disparus()#fait disparaitre les boutons 1 ou 11
         resultat.config(text="") #efface gagné ou perdu
 

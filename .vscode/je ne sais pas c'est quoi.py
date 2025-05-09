@@ -227,22 +227,32 @@ def on_open_fenetre2():
         if score_joueur==21 and len(cartes_tirees)==2:
             blabla1="Black Jack - Bravo vous avez gagné 🥳"
             resultat.config(text=blabla1)           #met a jour le label resultat
+            tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
+            rester.config(state=tk.DISABLED)
 
         elif (score_croupier==21 and len(cartes_tirees)==2):
             blabla3="Bouh, vous avez perdu 🤣"
             resultat.config(text=blabla3)
+            tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
+            rester.config(state=tk.DISABLED)
         
         elif (score_croupier<score_joueur and score_joueur==21) or score_croupier>21:
             blabla2="Bravo vous venez de remporter la partie"
             resultat.config(text=blabla2) 
+            tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
+            rester.config(state=tk.DISABLED)
         
         elif (score_croupier>score_joueur and score_croupier==21) or score_joueur>21:
             blabla3="Bouh vous avez perdu 🤣"
             resultat.config(text=blabla3)
+            tirer.config(state=tk.DISABLED)#désactive les boutons le temps du choix
+            rester.config(state=tk.DISABLED)
         
         elif (score_croupier==score_joueur and len(cartes_tirees)==2) or (score_joueur==21 and score_croupier==21):
             blabla4="Egalité, c'est bien joué 👍"
             resultat.config(text=blabla4)
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED)
 
         else:
             resultat.config(text="")
