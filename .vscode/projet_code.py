@@ -163,10 +163,10 @@ def on_open_fenetre2():
 
             target_x, target_y = 160 + espcarte_j, 450
             def move_j(speed = 20):    #mix entre IA et inspiration de video regarde
-                x = carte_label.winfo_x()
+                x = carte_label.winfo_x()   #prend l'emplacement du label
                 y = carte_label.winfo_y()
 
-                dx = target_x - x
+                dx = target_x - x       #regarde distance entre point de depart et arivee
                 dy = target_y - y
                 distance = (dx**2 + dy**2)**0.5
 
@@ -175,12 +175,12 @@ def on_open_fenetre2():
                         carte_label.place(x = target_x, y = target_y) 
                         x += 150
                 else:
-                    step_x = dx / distance * speed
+                    step_x = dx / distance * speed      #si encore loin du but il assure que ca avance dans une ligne droite
                     step_y = dy / distance * speed
-                    carte_label.place(x=x + step_x, y=y + step_y)
-                    carte_label.after(16, move_j)  
+                    carte_label.place(x=x + step_x, y=y + step_y)   #raproche le widget
+                    carte_label.after(16, move_j)       #animation avec carte qui passe apres 16miliseconde
 
-            carte_label.after(50, move_j)
+            carte_label.after(50, move_j)       #appelle la fonction, meme raisonement que ligne precedent
             
     
     def distribution_croupier():
@@ -203,7 +203,7 @@ def on_open_fenetre2():
         dealer.config(text=f"Croupier({score_croupier})")   #met a jour le texte affiche dans le label pour montrer le score actuel
 
         target_x, target_y = 160 + espcarte_c, 100
-        def move_c(speed = 20): 
+        def move_c(speed = 20):         #meme que move_j
             x = carte_label.winfo_x()
             y = carte_label.winfo_y()
 
@@ -314,9 +314,6 @@ def on_open_fenetre2():
         choix_as_disparus()#fait disparaitre les boutons 1 ou 11
         resultat.config(text="") #efface gagné ou perdu
 
-    recommencer_bouton = tk.Button(fenetre2, text="Recommencer", bg="#FFFFFF", fg="black", command=bouton_recommencer)
-    recommencer_bouton.place(x=843, y=35) #création du bouton
-
     #BOUTONS
     tirer = tk.Button(fenetre2, text = " CARTE ! ", bg = '#000000', fg = 'white',command = deal, state=tk.DISABLED)
     tirer.configure(height=3, width=10)
@@ -333,6 +330,9 @@ def on_open_fenetre2():
     bouton_accueil= tk.Button(fenetre2, text="Accueil", bg = "#FF0000", fg="black", command = accueil)
     bouton_accueil.configure(height=1, width=6)
     bouton_accueil.place(x=843, y=0)
+
+    recommencer_bouton = tk.Button(fenetre2, text="Recommencer", bg="#FFFFFF", fg="black", command=bouton_recommencer)
+    recommencer_bouton.place(x=843, y=35) #création du bouton
 
 
 #ca a servi au debut de la creation du jeu et on s'est appuyé dessu ducoup pour certaines fonctions
