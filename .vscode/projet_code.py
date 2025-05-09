@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
-import os
+import os #interagit avec systeme d'exploitation pour manipuler des dossiers, fichiers, etc
 from random import shuffle, choice
 
 #Fenetre règle:
@@ -23,6 +23,10 @@ def on_open_fenetre():
     rule.config(state=tk.DISABLED)   #empeche la modif du texte
 
     rule.pack()    #affiche le widget Text dans la fenetre 
+    
+    bouton_quit = tk.Button(fentre_regle,text = " QUIT ",bg = '#ff0000',command = fentre_regle.destroy)
+    bouton_quit.configure(height=2, width=5)
+    bouton_quit.place(x=600)
 
 #############################################################################################################################
 #FENETRE 2
@@ -48,7 +52,6 @@ def on_open_fenetre2():
     y_position_croupier=50
     x_position_croupier=100
 
-    overlap_offset=30
     score_joueur=0
     score_croupier=0
     valeur_as=None
@@ -228,9 +231,7 @@ def on_open_fenetre2():
 
         if score_joueur==21 and len(cartes_tirees)==2:
             blabla1="Black Jack - Bravo vous avez gagné 🥳"
-            resultat.config(text=blabla1)   #met a jour la variable resultat
-            tirer.config(state=tk.DISABLED)
-            rester.config(state=tk.DISABLED)        
+            resultat.config(text=blabla1)   #met a jour la variable resultat       
 
         elif (score_croupier==21 and len(cartes_tirees)==2):
             blabla3="Bouh, vous avez perdu 🤣"
@@ -245,6 +246,12 @@ def on_open_fenetre2():
             rester.config(state=tk.DISABLED) 
         
         elif (score_croupier>score_joueur and score_croupier==21) or score_joueur>21:
+            blabla3="Bouh vous avez perdu 🤣"
+            resultat.config(text=blabla3)
+            tirer.config(state=tk.DISABLED)
+            rester.config(state=tk.DISABLED)
+
+        elif score_joueur>21:
             blabla3="Blast - Bouh vous avez perdu 🤣"
             resultat.config(text=blabla3)
             tirer.config(state=tk.DISABLED)
@@ -258,8 +265,6 @@ def on_open_fenetre2():
 
         else:
             resultat.config(text="")
-
-    
 
     def deal ():    #Fonction pour avoir une carte
         nonlocal nbcarte_j, espcarte_j
@@ -280,6 +285,8 @@ def on_open_fenetre2():
         donner_2_cartes(playeur=False)
         compteur()
         cartes2.place_forget() #fait disparaitre le boutton ia
+        tirer.config(state=tk.NORMAL)
+        rester.config(state=tk.NORMAL)
 
     #LABELS
     dealer = tk.Label(fenetre2, text ="Croupier", bg = '#13563B', fg = "white",font = ("Helvetica",25))
@@ -302,19 +309,19 @@ def on_open_fenetre2():
         x_position_croupier = 100
         joueur.config(text="Joueur(0)")#les scores sont reécris
         dealer.config(text="Croupier(0)")
-        tirer.config(state=NORMAL)#récative les boutons
-        rester.config(state=NORMAL)
-        cartes2.config(state=NORMAL)
+        tirer.config(state=tk.DISABLED)#récative les boutons
+        rester.config(state=tk.DISABLED)
+        cartes2.config(state=tk.NORMAL)
         cartes2.place(x=470, y=325)
         choix_as_disparus()#fait disparaitre les boutons 1 ou 11
         resultat.config(text="") #efface gagné ou perdu
 
     #BOUTONS
-    tirer = tk.Button(fenetre2, text = " CARTE ! ", bg = '#000000', fg = 'white',command = deal)
+    tirer = tk.Button(fenetre2, text = " CARTE ! ", bg = '#000000', fg = 'white',command = deal, state=tk.DISABLED)
     tirer.configure(height=3, width=10)
     tirer.place(x=610,y=280)
 
-    rester = tk.Button(fenetre2, text = " RESTER ", bg = '#000000', fg = 'white', command= stand)
+    rester = tk.Button(fenetre2, text = " RESTER ", bg = '#000000', fg = 'white', command= stand, state=tk.DISABLED)
     rester.configure(height=3, width=10)
     rester.place(x=610,y=366)
 
@@ -336,7 +343,6 @@ def on_open_fenetre2():
 
    # image_refs=[]
     y_position = 300
-    overlap_offset=1
     for i in range (len(cartes_photos)):
         path = os.path.join(current_dir, cartes_photos[i]) 
         image=PhotoImage(file=path)
@@ -344,7 +350,6 @@ def on_open_fenetre2():
         iage=tk.Label(fenetre2, image=image)
         iage.image=image
         iage.place(x=750, y=259)
-        #y_position+=overlap_offset
 
     
 ##############################################################################################################################
@@ -353,8 +358,6 @@ def on_open_fenetre2():
 fenetre1 = tk.Tk()
 fenetre1.title("Black Jack MENU")
 fenetre1.geometry("650x800")
-#fenetre1.configure(bg='#006400')
-
 
 #Label
 current_dir = os.path.dirname(__file__)

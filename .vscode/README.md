@@ -9,5 +9,5 @@ Informations: -Jeu sans mise
               -Flavie: interfaces graphiques: fenetre 1, fenetre 2 (ajout des cartes, effets des cartes), fonctions: deal, stand, move
               -Mariem: interface graphique: fenetre regle, fonctions: chemins(os), donner_2_cartes, distribution_croupier, compteur, piocher2
 
-Défaults:-Au niveau des commits, les messages ne sont pas clairs
+Défauts:-Au niveau des commits, les messages ne sont pas clairs
           -Ca aurait éte plus sympa si on pouvait choisir qu'une seule fois au début si l'as vaut 11 ou 1
