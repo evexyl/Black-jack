@@ -52,13 +52,16 @@ def on_open_fenetre2():
     y_position_croupier=50
     x_position_croupier=100
 
+    #Score
     score_joueur=0
     score_croupier=0
     valeur_as=None
+    resultat=None
+
+    #Cartes
     cartes_labels=[]
     cartes_tirees=[]
     boutons_choix_as = []
-    resultat=None
 
     #Move
     nbcarte_j = 0
